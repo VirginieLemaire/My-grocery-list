@@ -60,7 +60,7 @@ class Item {
         }
     }
 
-    //récupérer une liste de items d'une catégorie identifiée par son id
+    //récupérer une liste d'articles d'une catégorie identifiée par son id
     /**
      * Récupére une liste d'articles d'une catégorie identifiée par son id
      * @param {*} catId id de la catégorie qu'on recherche
@@ -79,9 +79,45 @@ class Item {
 
     }
 
-    //TODO Ajouter les articles par marque
-    //TODO Ajouter les articles par rayon
+    //récupérer une liste d'articles d'une marque identifiée par son id
+    /**
+     * Récupére une liste d'articles d'une marque identifiée par son id
+     * @param {*} brandId id de la marque qu'on recherche
+     * @returns {Array<Item>} peut être vide si la marque n'existe pas ou si elle ne possède pas d'article
+     * @async
+     * @static
+     */
+     static async findByBrand(brandId) {
+        try {
+            const {rows} = await pool.query('SELECT * FROM item_with_everything WHERE brand_id=$1', [brandId]);
+            return rows.map(row => new Item(row));
+        } catch (error) {
+            console.log(error);
+            throw new Error(error.detail ? error.detail : error.message);
+        }
+    }
+
+    //récupérer une liste d'articles d'un rayon identifié par son id
+    /**
+     * Récupére une liste d'articles d'un rayon identifié par son id
+     * @param {*} shelfId id du rayon qu'on recherche
+     * @returns {Array<Item>} peut être vide si le rayon n'existe pas ou s'il ne possède pas d'article
+     * @async
+     * @static
+     */
+     static async findByShelf(shelfId) {
+        try {
+            const {rows} = await pool.query('SELECT * FROM item_with_everything WHERE shelf_id=$1', [shelfId]);
+            return rows.map(row => new Item(row));
+        } catch (error) {
+            console.log(error);
+            throw new Error(error.detail ? error.detail : error.message);
+        }
+    }
+
     //TODO Ajouter un article dans la base de données
+    //TODO modifier un article dans la base de données (update, delete)
+    //TODO factoriser les findBy
     
 }
 

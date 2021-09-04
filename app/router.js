@@ -14,9 +14,9 @@ router.get('/items/:id', itemController.findOne);
 router.get('/items/category/:id', itemController.findByCategory);
 
 //les articles par marque
-
+router.get('/items/brand/:id', itemController.findByBrand);
 // les articles par rayon
-
+router.get('/items/shelf/:id', itemController.findByShelf);
 /**
  * Une route au cas où aucune ne réponde
  * 

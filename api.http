@@ -1,0 +1,16 @@
+@host=http://localhost:3000/v1
+
+### tous les articles
+GET {{host}}/items
+
+### 1 article en fonction de son id
+GET {{host}}/items/18
+
+### les article spour une catégorie
+GET {{host}}/items/category/3
+
+### les articles pour une marque
+GET {{host}}/items/brand/5
+
+### les articles pour un rayon
+GET {{host}}/items/shelf/2
