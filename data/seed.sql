@@ -2,6 +2,7 @@ BEGIN;
 
 --on commence par les tables ayant des champs qui se seront FK dans d'autres tables
 INSERT INTO brand ("name") VALUES
+    (''),
     ('Charal'),
     ('Herta'),
     ('Lindt'),
@@ -9,6 +10,7 @@ INSERT INTO brand ("name") VALUES
     ('St Hubert');
 
 INSERT INTO shelf ("name") VALUES
+    (''),
     ('Animalerie'),
     ('Bio'),
     ('Boissons'),
@@ -26,6 +28,7 @@ INSERT INTO shelf ("name") VALUES
     ('Lait-œufs');
 
 INSERT INTO category ("name") VALUES
+    (''),
     ('Accompagnements'),
     ('Assaisonnement'),
     ('Boissons'),
@@ -42,26 +45,26 @@ INSERT INTO category ("name") VALUES
     ('Chats');
 
 INSERT INTO item ("name", details, brand_id, category_id, shelf_id) VALUES
-    ('beurre 1/2 sel',NULL,NULL,2,7),
-    ('beurre 1/2 sel cholestérol',NULL,5,2,7),
-    ('coca',NULL,NULL,3,3),
-    ('monaco',NULL,NULL,3,3),
-    ('bière',NULL,NULL,3,3),
-    ('jambon blanc',NULL,NULL,12,7),
-    ('jambon fumé',NULL,NULL,12,7),
-    ('frites',NULL,NULL,1,13),
-    ('steak hachés','PUR BŒUF',1,12,13),
-    ('boisson soja','si possible de Grand Frais',NULL,10,2),
-    ('œufs',NULL,NULL,12,15),
-    ('cracottes',NULL,NULL,10,6),
-    ('chocolat au lait',NULL,4,13,6),
-    ('chocolat au lait avec noisettes',NULL,4,13,6),
-    ('chocolat noir avec framboises',NULL,3,13,6),
-    ('lardons',NULL,2,12,7),
-    ('Croquettes chaton',NULL,NULL,14,1),
-    ('Croquettes adulte',NULL,NULL,14,1),
-    ('Perle de lait','amandes',NULL,4,7),
-    ('Candy-up','chocolat',NULL,3,15);
+    ('beurre 1/2 sel',NULL,1,3,8),
+    ('beurre 1/2 sel cholestérol',NULL,6,3,8),
+    ('coca',NULL,1,4,4),
+    ('monaco',NULL,1,4,4),
+    ('bière',NULL,1,4,4),
+    ('jambon blanc',NULL,1,13,8),
+    ('jambon fumé',NULL,1,13,8),
+    ('frites',NULL,1,2,14),
+    ('steak hachés','PUR BŒUF',2,13,14),
+    ('boisson soja','si possible de Grand Frais',1,11,3),
+    ('œufs',NULL,1,13,16),
+    ('cracottes',NULL,1,11,7),
+    ('chocolat au lait',NULL,5,14,7),
+    ('chocolat au lait avec noisettes',NULL,5,14,7),
+    ('chocolat noir avec framboises',NULL,4,14,7),
+    ('lardons',NULL,3,13,8),
+    ('Croquettes chaton',NULL,1,15,2),
+    ('Croquettes adulte',NULL,1,15,2),
+    ('Perle de lait','amandes',1,5,8),
+    ('Candy-up','chocolat',1,4,16);
 
 
 COMMIT;
