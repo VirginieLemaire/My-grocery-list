@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=grocery_list
+
+init 2021-09-04T13:06:22Z Virginie <student@teleporter> # create tables

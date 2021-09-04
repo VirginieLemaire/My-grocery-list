@@ -1,0 +1,16 @@
+{
+  "name": "grocery-list",
+  "version": "1.0.0",
+  "description": "app to follow your grocery list",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "node-dev index.js"
+  },
+  "author": "Virginie Lemaire",
+  "license": "ISC"
+}
