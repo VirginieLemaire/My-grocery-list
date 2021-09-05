@@ -15,14 +15,14 @@ CREATE TABLE brand (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL
 );
---2) les tables avec FK
+--2) les tables avec FK default 1 : l'utilisateur ne sera pas obligé de rensiegner ces données mais j'ai besoin d'un id pour la vue (ou pour des JOIN) sinon le résultat est tronqué
 CREATE TABLE item (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL,
     details TEXT,
-    brand_id INT REFERENCES brand(id),
-    category_id INT REFERENCES category(id),
-    shelf_id INT REFERENCES shelf(id)
+    brand_id INT REFERENCES brand(id) DEFAULT (1),
+    category_id INT REFERENCES category(id) DEFAULT (1),
+    shelf_id INT REFERENCES shelf(id) DEFAULT (1)
 );
 
 

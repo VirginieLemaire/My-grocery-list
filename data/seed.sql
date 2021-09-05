@@ -1,6 +1,7 @@
 BEGIN;
 
---on commence par les tables ayant des champs qui se seront FK dans d'autres tables
+--je commence par les tables ayant des champs qui se seront FK dans d'autres tables
+--j'ajoute un champ vide pour qu'il y ait un id (nécessaire pour faire des JOIN alors que l'utilisateur ne les renseignera pas forcément...)
 INSERT INTO brand ("name") VALUES
     (''),
     ('Charal'),
