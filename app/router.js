@@ -1,22 +1,28 @@
 //importer le controller
 const itemController = require('./controllers/itemController');
+const brandController = require('./controllers/brandController');
 
 const { Router }  = require('express');
 const router = Router();
 
-//afficher tous les articles
+//ITEMS
+//all items
 router.get('/items', itemController.findAll);
-
-//afficher 1 article
+//1 item
 router.get('/items/:id', itemController.findOne);
-
-//afficher les articles par catégorie
+//all items for one category
 router.get('/items/category/:id', itemController.findByCategory);
-
-//les articles par marque
+//all items for brand 
 router.get('/items/brand/:id', itemController.findByBrand);
-// les articles par rayon
+//all items for shelf 
 router.get('/items/shelf/:id', itemController.findByShelf);
+
+//BRAND
+//all brands
+router.get('/brands', brandController.findAll);
+//1 brand
+router.get('/brands/:id', brandController.findOne);
+
 /**
  * Une route au cas où aucune ne réponde
  * 

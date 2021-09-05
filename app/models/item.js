@@ -1,13 +1,13 @@
 const pool = require('../database');
 
 /**
- * Entité représentant un article pour une liste d'achats
- * @typedef Post
- * @property {string} name nom de l'article ex: "beurre 1/2 sel"
- * @property {string} details détail ou commentaire au sujet de l'article (si besoin)
- * @property {string} brand marque (si besoin)
- * @property {string} category catégorie personnalisée de l'article ex: Petit-dej 
- * @property {string} shelf rayon où trouver l'article
+ * An entity representing an item
+ * @typedef Item
+ * @property {string} name name of the item
+ * @property {string} details details or comments about this item (if needed)
+ * @property {string} brand brand (if needed)
+ * @property {string} category personalised category as you categorise at home, "breakfast" for example (if needed)
+ * @property {string} shelf store shelf where you usually find this item
 */
 
 /**
@@ -21,10 +21,9 @@ class Item {
         }
     }
 
-    //récupérer tous les items (articles)
     /**
-     * Récupère tous les articles de la base de données
-     * @returns {Array<Item>} un tableau d'articles
+     * Fetches all items from the database
+     * @returns {Array<Item>}
      * @async
      * @static
      */
@@ -38,11 +37,10 @@ class Item {
         }
     }
 
-    //récupérer un item (article) en fonction de son id
     /**
-     * Récupère 1 article de la base de données
-     * @param {number} id id de l'article qu'on recherche
-     * @returns {Item | null} null : s'il n'y a pas d'article correspondant dans la base de données
+     * Fetches one item from the database
+     * @param {number} id id of the item we're looking for
+     * @returns {Item | null} null if no item matches the given id in database
      * @async
      * @static
      */
@@ -60,11 +58,10 @@ class Item {
         }
     }
 
-    //récupérer une liste d'articles d'une catégorie identifiée par son id
     /**
-     * Récupére une liste d'articles d'une catégorie identifiée par son id
-     * @param {*} catId id de la catégorie qu'on recherche
-     * @returns {Array<Item>} peut être vide si la catégorie n'existe pas ou si elle ne possède pas d'article
+     * Fetches all items with the given category from the database
+     * @param {*} catId id of the category we're looking for 
+     * @returns {Array<Item>} can be empty with unexisting or unpopular category
      * @async
      * @static
      */
@@ -79,11 +76,10 @@ class Item {
 
     }
 
-    //récupérer une liste d'articles d'une marque identifiée par son id
     /**
-     * Récupére une liste d'articles d'une marque identifiée par son id
-     * @param {*} brandId id de la marque qu'on recherche
-     * @returns {Array<Item>} peut être vide si la marque n'existe pas ou si elle ne possède pas d'article
+     * Fetches all items with the given brand from the database
+     * @param {*} brandId id of the brand we're looking for 
+     * @returns {Array<Item>} can be empty with unexisting or unpopular brand
      * @async
      * @static
      */
@@ -97,11 +93,10 @@ class Item {
         }
     }
 
-    //récupérer une liste d'articles d'un rayon identifié par son id
     /**
-     * Récupére une liste d'articles d'un rayon identifié par son id
-     * @param {*} shelfId id du rayon qu'on recherche
-     * @returns {Array<Item>} peut être vide si le rayon n'existe pas ou s'il ne possède pas d'article
+     * Fetches all shelves with the given brand from the database
+     * @param {*} shelfId id of the shelf we're looking for 
+     * @returns {Array<Item>} can be empty with unexisting or unpopular shelf
      * @async
      * @static
      */
@@ -116,7 +111,30 @@ class Item {
     }
 
     //TODO Ajouter un article dans la base de données
-    //TODO modifier un article dans la base de données (update, delete)
+
+    //  async save() {
+    //     try {
+    //         if (this.id) {
+    //             //TODO modifier un article dans la base de données
+    //             console.log('cet article existe déjà : le mettre à jour?');
+                
+    //         } else {
+    //             const {rows} = await pool.query('INSERT INTO item (name, details, brand_id, category_id, shelf_id) VALUES($1, $2, $3, $4, $5) RETURNING id', [
+    //                 this.name,
+    //                 this.details,
+    //                 this.brand_id,
+    //                 this.category_id,
+    //                 this.shelf_id
+    //             ]);
+    //             this.id = rows[0].id;
+    //         }
+    //     } catch (error) {
+    //         console.log('Erreur SQL', error.detail);
+    //         //relancer l'erreur pout que le controller puisse l'attrapper et la renvoyer au front
+    //         throw new Error(error.detail ? error.detail : error.message);
+    //     }
+    // }
+    //TODO supprimer un article de la base de données
     //TODO factoriser les findBy
     
 }
