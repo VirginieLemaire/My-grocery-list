@@ -2,6 +2,7 @@
 const itemController = require('./controllers/itemController');
 const brandController = require('./controllers/brandController');
 const shelfController = require('./controllers/shelfController');
+const categoryController = require('./controllers/categoryController');
 
 const { Router }  = require('express');
 const router = Router();
@@ -29,6 +30,12 @@ router.get('/brands/:id', brandController.findOne);
 router.get('/shelves', shelfController.findAll);
 //1 shelf
 router.get('/shelves/:id', shelfController.findOne);
+
+//CATEGORY
+//all categories
+router.get('/categories', categoryController.findAll);
+//1 brand
+router.get('/categories/:id', categoryController.findOne);
 
 /**
  * Une route au cas où aucune ne réponde

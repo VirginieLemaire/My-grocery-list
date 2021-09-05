@@ -23,3 +23,9 @@ GET {{host}}/brands/2
 GET {{host}}/shelves
 ### 1
 GET {{host}}/shelves/8
+
+//CATEGORY
+### all
+GET {{host}}/categories
+### 1
+GET {{host}}/categories/5
