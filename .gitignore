@@ -7,8 +7,9 @@ sqitch.conf
 # Dependency directories
 node_modules/
 
-# Fichiers d'organisation
+# Fichiers d'organisation et seed perso
 orga-projet
+**/seed-perso.sql
 
 # Logs
 logs
@@ -27,3 +28,4 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Optional REPL history
 .node_repl_history
+

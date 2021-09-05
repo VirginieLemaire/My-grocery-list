@@ -7,8 +7,7 @@ INSERT INTO brand ("name") VALUES
     ('Charal'),
     ('Herta'),
     ('Lindt'),
-    ('Milka'),
-    ('St Hubert');
+    ('Milka');
 
 INSERT INTO shelf ("name") VALUES
     (''),
@@ -47,25 +46,21 @@ INSERT INTO category ("name") VALUES
 
 INSERT INTO item ("name", details, brand_id, category_id, shelf_id) VALUES
     ('beurre 1/2 sel',NULL,1,3,8),
-    ('beurre 1/2 sel cholestérol',NULL,6,3,8),
-    ('coca',NULL,1,4,4),
-    ('monaco',NULL,1,4,4),
+    ('jus d''orange',NULL,1,4,4),
     ('bière',NULL,1,4,4),
     ('jambon blanc',NULL,1,13,8),
     ('jambon fumé',NULL,1,13,8),
     ('frites',NULL,1,2,14),
-    ('steak hachés','PUR BŒUF',2,13,14),
-    ('boisson soja','si possible de Grand Frais',1,11,3),
+    ('steak haché','pur boeuf',2,13,14),
+    ('boisson soja','si possible',1,11,3),
     ('œufs',NULL,1,13,16),
     ('cracottes',NULL,1,11,7),
     ('chocolat au lait',NULL,5,14,7),
     ('chocolat au lait avec noisettes',NULL,5,14,7),
     ('chocolat noir avec framboises',NULL,4,14,7),
-    ('lardons',NULL,3,13,8),
-    ('Croquettes chaton',NULL,1,15,2),
-    ('Croquettes adulte',NULL,1,15,2),
-    ('Perle de lait','amandes',1,5,8),
-    ('Candy-up','chocolat',1,4,16);
+    ('Croquettes chat',NULL,1,15,2),
+    ('Croquettes chien',NULL,1,15,2),
+    ('Yaourt','nature',1,5,8);
 
 
 COMMIT;
