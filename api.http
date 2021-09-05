@@ -17,3 +17,9 @@ GET {{host}}/items/shelf/2
 GET {{host}}/brands
 ### 1 marque en fonction de son id
 GET {{host}}/brands/2
+
+//SHELF
+### all
+GET {{host}}/shelves
+### 1
+GET {{host}}/shelves/8
