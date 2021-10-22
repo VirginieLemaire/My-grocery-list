@@ -23,28 +23,6 @@ class Item extends Generic {
         super(obj);
     }
 
-
-    /**
-     * Fetches one item from the database
-     * @param {number} id id of the item we're looking for
-     * @returns {Item | null} null if no item matches the given id in database
-     * @async
-     * @static
-     */
-    static async findById(id) {
-        try {
-            const {rows} = await pool.query('SELECT * FROM item_with_everything WHERE id=$1', [id]);
-            if (rows[0]) {
-                return new Item(rows[0]);
-            }
-            return null;
-
-        } catch(error) {
-            console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
-        }
-    }
-
     /**
      * Fetches all items with the given category from the database
      * @param {*} catId id of the category we're looking for 
