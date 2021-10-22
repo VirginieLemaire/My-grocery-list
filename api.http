@@ -29,3 +29,7 @@ GET {{host}}/shelves/8
 GET {{host}}/categories
 ### 1
 GET {{host}}/categories/5
+
+//ITEMS FILTER
+### 
+GET {{host}}/items/filter?shelf=Frais&category=Assaisonnement&brand=St Hubert

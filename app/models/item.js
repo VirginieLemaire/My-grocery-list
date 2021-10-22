@@ -24,33 +24,30 @@ class Item extends Generic {
     }
 
     /**
-     * Fetches all items with the given category from the database
-     * @param {*} catId id of the category we're looking for 
-     * @returns {Array<Item>} can be empty with unexisting or unpopular category
-     * @async
-     * @static
+     * Fetches the items applying filter(s) (eg. for one category)
+     * @param {object} queryString correspond to the filter(s) applied
+     * @returns {Array<Items>} an array of items corresponding to the filter (maybe empty)
      */
-    static async findByCategory(catId) {
+    static async findByFilter(queryString) {
         try {
-            const {rows} = await pool.query('SELECT * FROM item_with_everything WHERE category_id=$1', [catId]);
-            return rows.map(row => new Item(row));
-        } catch (error) {
-            console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
-        }
+            //Construct prepared instruction depending on what is in queryString
+            const partOfQUery = ['WHERE '];
+            const bind = []; //prepare bind needed for prepared instruction
+            let count = 1;
+            for (const key in queryString) {
+                partOfQUery.push(`${key} ILIKE '%' || $${count++}  || '%' `);
+                bind.push(`${queryString[key]}`)
+            }
+            //add 'AND' to the query if needed
+            for (let i = 1; i < partOfQUery.length; i++) {
+                if (i%2 === 0) partOfQUery.splice(i,0,'AND ');
+            }
+            //transform in a string and delete "," added by .join()
+            const query = `${partOfQUery.join().replace(/,/g,"")}`;
+            console.log(query);
 
-    }
-
-    /**
-     * Fetches all items with the given brand from the database
-     * @param {*} brandId id of the brand we're looking for 
-     * @returns {Array<Item>} can be empty with unexisting or unpopular brand
-     * @async
-     * @static
-     */
-     static async findByBrand(brandId) {
-        try {
-            const {rows} = await pool.query('SELECT * FROM item_with_everything WHERE brand_id=$1', [brandId]);
+            //send request
+            const {rows} = await pool.query(`SELECT * FROM item_with_everything ${query}`, [...bind]);
             return rows.map(row => new Item(row));
         } catch (error) {
             console.log(error);
@@ -58,22 +55,6 @@ class Item extends Generic {
         }
     }
 
-    /**
-     * Fetches all shelves with the given brand from the database
-     * @param {*} shelfId id of the shelf we're looking for 
-     * @returns {Array<Item>} can be empty with unexisting or unpopular shelf
-     * @async
-     * @static
-     */
-     static async findByShelf(shelfId) {
-        try {
-            const {rows} = await pool.query('SELECT * FROM item_with_everything WHERE shelf_id=$1', [shelfId]);
-            return rows.map(row => new Item(row));
-        } catch (error) {
-            console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
-        }
-    }
 
     //TODO Ajouter un article dans la base de données
 

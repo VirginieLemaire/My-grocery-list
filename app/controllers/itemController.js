@@ -1,24 +1,24 @@
 const Item = require('../models/item');
 
 const itemController = {
-    // findAll: async (_, response) => {
-    //     try {
-    //         const items = await Item.findAll();
-    //         response.json(items);
-    //     } catch(error) {
-    //         console.log(error);
-    //     }
-    // },
-    
-    // findOne: async (request, response) => {
-    //     try {
-    //         const id = parseInt(request.params.id, 10);
-    //         const item = await Item.findById(id);
-    //         response.json(item);
-    //     } catch(error) {
-    //         console.log(error);
-    //     }
-    // },
+    async findByFilter(request, response, next) {
+        //create an object for the query string
+        const queryString = {};
+        //set properties if exists
+        if (request.query.brand) queryString.brand = request.query.brand;
+        if (request.query.category) queryString.category = request.query.category;
+        if (request.query.shelf) queryString.shelf = request.query.shelf;
+        console.log({queryString});
+        console.log("zou on envoie au modèle")
+        const data = await Item.findByFilter(queryString);
+        //prévoir le cas où la donnée n'existe pas
+        if (!data) {
+            //passer au middleware suivant, arrêter la fonction
+            next();
+            return;
+        }
+        response.json(data);
+    },
 
     findByCategory: async (request, response) => {
         try {
