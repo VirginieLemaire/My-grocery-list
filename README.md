@@ -1,4 +1,4 @@
-# MA LISTE DE COURSES : GROCERY LIST
+# 🛒 MA LISTE DE COURSES : GROCERY LIST 🛒
 
 API REST affichant une liste d'articles pour préparer sa liste de courses.
 
@@ -8,7 +8,7 @@ Ce projet me permet de pratiquer diverses notions apprises en cours (code et org
 <details>
 <summary>Table des matières</summary>
 
-- [MA LISTE DE COURSES : GROCERY LIST](#ma-liste-de-courses--grocery-list)
+- [🛒 MA LISTE DE COURSES : GROCERY LIST 🛒](#-ma-liste-de-courses--grocery-list-)
   - [Stack technique](#stack-technique)
   - [Fonctionnalités en place](#fonctionnalités-en-place)
     - [Articles](#articles)
@@ -18,6 +18,7 @@ Ce projet me permet de pratiquer diverses notions apprises en cours (code et org
   - [Fonctionnalités à venir](#fonctionnalités-à-venir)
   - [Installation](#installation)
     - [Précisions pour le seed](#précisions-pour-le-seed)
+  
 </details>
 
 ***
@@ -132,7 +133,7 @@ Vous pouvez accéder aux données avec le fichier `api.http` qui se trouve à la
 
 ### Précisions pour le seed
 
-Un fichier de seed avec quelques données (rien de bien équilibré... :face_with_rolling_eyes:) est dispo dans le [dossier data](https://github.com/VirginieLemaire/My-grocery-list/tree/main/data).
+Un fichier de seed avec quelques données (rien de bien équilibré... 😅) est dispo dans le [dossier data](https://github.com/VirginieLemaire/My-grocery-list/tree/main/data).
 
 Les accès aux articles (items) sont basés sur une vue qui **a besoin des id** de marque, catégorie et rayon. Or ces données sont facultatives pour l'utilisateur (s'il a envie d'ajouter un article sans se prendre la tête).
 

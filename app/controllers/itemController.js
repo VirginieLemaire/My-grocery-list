@@ -1,14 +1,14 @@
 const Item = require('../models/item');
 
 const itemController = {
-    findAll: async (_, response) => {
-        try {
-            const items = await Item.findAll();
-            response.json(items);
-        } catch(error) {
-            console.log(error);
-        }
-    },
+    // findAll: async (_, response) => {
+    //     try {
+    //         const items = await Item.findAll();
+    //         response.json(items);
+    //     } catch(error) {
+    //         console.log(error);
+    //     }
+    // },
     
     findOne: async (request, response) => {
         try {
