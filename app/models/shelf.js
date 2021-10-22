@@ -1,4 +1,5 @@
 const pool = require('../database');
+const Generic = require('./generic');
 
 /**
  * An entity representing a shelf
@@ -9,33 +10,15 @@ const pool = require('../database');
 /**
  * @class Shelf
  */
-class Shelf {
+class Shelf extends Generic {
     /**
-     * The Shelf constuctor
-     * @param {Object} obj a literal object with properties copied into the instance
+     * Constructor, has parent properties
+     * @param {*} obj a literal object with properties copied into the instance
      */
-    constructor(obj = {}) {
-        for (const propName in obj) {
-            this[propName] = obj[propName];
-        }
+    constructor(obj) {
+        super(obj);
     }
 
-    //get all shelves
-    /**
-     * Fetches all shelves in the database
-     * @returns {Array<Shelf>} 
-     * @async
-     * @static
-     */
-    static async findAll() {
-        try {
-            const {rows} = await pool.query('SELECT * FROM shelf');
-            return rows.map(row => new Shelf(row));
-        } catch (error) {
-            console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
-        }
-    }
 
     //get one shelf identified by its id
     /**

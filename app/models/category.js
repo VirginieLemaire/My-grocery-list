@@ -1,4 +1,5 @@
 const pool = require('../database');
+const Generic = require('./generic');
 
 /**
  * An entity representing a category
@@ -9,33 +10,15 @@ const pool = require('../database');
 /**
  * @class Category
  */
-class Category {
+class Category extends Generic {
     /**
-     * The Category constuctor
-     * @param {Object} obj a literal object with properties copied into the instance
+     * Constructor, has parent properties
+     * @param {*} obj a literal object with properties copied into the instance
      */
-    constructor(obj = {}) {
-        for (const propName in obj) {
-            this[propName] = obj[propName];
-        }
+    constructor(obj) {
+        super(obj);
     }
 
-    //get all categories
-    /**
-     * Fetches all categories in the database
-     * @returns {Array<Category>} 
-     * @async
-     * @static
-     */
-    static async findAll() {
-        try {
-            const {rows} = await pool.query('SELECT * FROM category');
-            return rows.map(row => new Category(row));
-        } catch (error) {
-            console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
-        }
-    }
 
     //get one category identified by its id
     /**

@@ -1,4 +1,5 @@
 const pool = require('../database');
+const Generic = require('./generic');
 
 /**
  * An entity representing an item
@@ -13,29 +14,15 @@ const pool = require('../database');
 /**
  * @class Item
  */
-class Item {
-
-    constructor(obj = {}) {
-        for (const propName in obj) {
-            this[propName] = obj[propName];
-        }
-    }
-
+class Item extends Generic {
     /**
-     * Fetches all items from the database
-     * @returns {Array<Item>}
-     * @async
-     * @static
+     * Constructor, has parent properties
+     * @param {*} obj a literal object with properties copied into the instance
      */
-    static async findAll() {
-        try {
-            const {rows} = await pool.query('SELECT * FROM item_with_everything');
-            return rows.map(row => new Item(row));
-        } catch (error) {
-            console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
-        }
+    constructor(obj) {
+        super(obj);
     }
+
 
     /**
      * Fetches one item from the database

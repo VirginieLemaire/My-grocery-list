@@ -1,4 +1,5 @@
 const pool = require('../database');
+const Generic = require('./generic');
 
 /**
  * An entity representing a brand
@@ -9,33 +10,15 @@ const pool = require('../database');
 /**
  * @class Brand
  */
-class Brand {
+class Brand extends Generic {
     /**
-     * The Brand constuctor
-     * @param {Object} obj a literal object with properties copied into the instance
+     * Constructor, has parent properties
+     * @param {*} obj a literal object with properties copied into the instance
      */
-    constructor(obj = {}) {
-        for (const propName in obj) {
-            this[propName] = obj[propName];
-        }
+    constructor(obj) {
+        super(obj);
     }
 
-    //get all brands
-    /**
-     * Fetches all brands in the database
-     * @returns {Array<Brand>} 
-     * @async
-     * @static
-     */
-    static async findAll() {
-        try {
-            const {rows} = await pool.query('SELECT * FROM brand');
-            return rows.map(row => new Brand(row));
-        } catch (error) {
-            console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
-        }
-    }
 
     //get one brand identified by its id
     /**

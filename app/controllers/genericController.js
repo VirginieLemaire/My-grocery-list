@@ -5,7 +5,11 @@
  */
 module.exports = {
     async findAll(request, response) {
-        const data = await request.model.findAll();
+        const datas = {
+            modelTableName: request.modelTableName,
+            model: request.model
+        };
+        const data = await request.model.findAll(datas);
         response.json(data);
     },
 

@@ -38,11 +38,12 @@ module.exports = {
         
         //Get model name from params
         const modelName = getModelNameFromParams(request.params.modelName);
-        //console.log("voici mon modelName: ", modelName);
+        // console.log("voici mon modelName: ", modelName);
+
         //get model with model name
         const model = models[modelName];
-        //console.log("voici mon model: ", model);
-
+        // console.log("voici mon model: ", model);
+        
         //If no model for this string -> stop
         if (!model) {
             response.status(404).send('Not Found');
@@ -50,6 +51,8 @@ module.exports = {
         }
         //else put model in request.model
         request.model = model;
+        request.modelTableName = modelName.toLowerCase();
+        console.log("j'envoie : ", request.model, request.modelTableName )
         //and follow next middleware
         next();
 
