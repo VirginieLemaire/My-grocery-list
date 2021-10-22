@@ -8,14 +8,15 @@ module.exports = {
         const data = await request.model.findAll();
         response.json(data);
     },
+
     async findOne(request, response, next) {
-    const data = await request.model.findById(request.params.id);
-    //prévoir le cas où la donnée n'existe pas
-    if (!data) {
-        //passer au middleware suivant, arrêter la fonction
-        next();
-        return;
-    }
-    response.json(data);
+        const data = await request.model.findById(request.params.id);
+        //prévoir le cas où la donnée n'existe pas
+        if (!data) {
+            //passer au middleware suivant, arrêter la fonction
+            next();
+            return;
+        }
+        response.json(data);
     }
 }

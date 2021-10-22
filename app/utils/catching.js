@@ -1,18 +1,18 @@
 /**
- * Intercepte les erreurs de la fonction passée en paramètre et les retourne à l'API
- * @param {*} funct fonction appelée par express sur la route empruntée
- * @returns l'éxécution de la fonction ou erreur selon le cas
+ * Catches errors from function given in parameter et returns to API
+ * @param {*} funct function called by express on the given route
+ * @returns execute function or return error
  */
 module.exports.catching = (funct) => {
-    //retourner une fonction appelée par express en accédant à la route
+    //returns a function called by express on the taken route
     return async (request, response, next) => {
         try {
-            //Appel de la fonction passée en paramètre
+            //Call the function given in parameter
             return await funct(request, response, next);
         } catch (error) {
-            //Afficher l'erreur en console
+            //Give error in console
             console.trace(error);
-            //Informer le front
+            //Send it to front-end
             response.status(500).send(error.errors || "ça ne fonctionne pas...");
         }
     }
