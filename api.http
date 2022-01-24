@@ -4,32 +4,30 @@
 ### tous les articles
 GET {{host}}/items
 ### 1 article en fonction de son id
-GET {{host}}/items/18
-### les articles pour une catégorie
-GET {{host}}/items/category/3
-### les articles pour une marque
-GET {{host}}/items/brand/5
-### les articles pour un rayon
-GET {{host}}/items/shelf/2
+GET {{host}}/items/6
+
+//ITEMS FILTER
+### filtre sur les 3 entrées : brand, category et shelf
+GET {{host}}/items/filter?shelf=Epicerie sucrée&category=Friandises&brand=Lindt
+### filtre sur 2 entrées : category et shelf
+GET {{host}}/items/filter?shelf=Animalerie&category=Animaux
+### filtre sur une seule entrée
+GET {{host}}/items/filter?shelf=Frais
+
+//CATEGORY
+### liste des catégories
+GET {{host}}/categories
+### 1 catégorie en fonction de son id
+GET {{host}}/categories/6
+
+//SHELF
+### liste des rayons
+GET {{host}}/shelves
+### 1 rayon en fonction de son id
+GET {{host}}/shelves/6
 
 //BRAND
-### toutes les marques
+### liste des marques
 GET {{host}}/brands
 ### 1 marque en fonction de son id
 GET {{host}}/brands/2
-
-//SHELF
-### all
-GET {{host}}/shelves
-### 1
-GET {{host}}/shelves/8
-
-//CATEGORY
-### all
-GET {{host}}/categories
-### 1
-GET {{host}}/categories/5
-
-//ITEMS FILTER
-### 
-GET {{host}}/items/filter?shelf=Frais&category=Assaisonnement&brand=St Hubert

@@ -11,7 +11,7 @@ const { Router }  = require('express');
 const router = Router();
 
 /**
- * all items filtered for one <category |brand |shelf>
+ * all items filtered for one <category | brand |shelf>
  * @param {string}  items what we are looking for (eg.: items)
  * @param {string} filter name of the filter we are applying (eg.: brand)
  * @param {number} id id of the filter we want to find items corresponding
@@ -31,7 +31,7 @@ router.route('/:modelName')
  */
 router.route('/:modelName/:id')
   .all(addModelInRequest)
-  .get(catching(genericController.findOne));//find one element correponding to the id
+  .get(catching(genericController.findOne));//find one element corresponding to the id
 
 
 

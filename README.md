@@ -2,7 +2,7 @@
 
 API REST affichant une liste d'articles pour préparer sa liste de courses.
 
-Ce projet me permet de pratiquer diverses notions apprises en cours (code et organisation d'un projet).
+Ce projet me permet de pratiquer diverses notions apprises en cours (code et organisation d'un projet). Il est en cours de développement.
 
 ***
 <details>
@@ -12,9 +12,17 @@ Ce projet me permet de pratiquer diverses notions apprises en cours (code et org
   - [Stack technique](#stack-technique)
   - [Fonctionnalités en place](#fonctionnalités-en-place)
     - [Articles](#articles)
+      - [Détail des données retournées :](#détail-des-données-retournées-)
+      - [Accéder aux données :](#accéder-aux-données-)
     - [Catégories perso](#catégories-perso)
+      - [Détail des données retournées :](#détail-des-données-retournées--1)
+      - [Accéder aux données :](#accéder-aux-données--1)
     - [Rayon (du magasin)](#rayon-du-magasin)
+      - [Détail des données retournées :](#détail-des-données-retournées--2)
+      - [Accéder aux données :](#accéder-aux-données--2)
     - [Marques](#marques)
+      - [Détail des données retournées :](#détail-des-données-retournées--3)
+      - [Accéder aux données :](#accéder-aux-données--3)
   - [Fonctionnalités à venir](#fonctionnalités-à-venir)
   - [Installation](#installation)
     - [Précisions pour le seed](#précisions-pour-le-seed)
@@ -39,9 +47,13 @@ Uniquement en lecture et en local pour l'instant (voir [installation](#installat
 3. [Accès aux rayons](#rayon-du-magasin)
 4. [Accès aux marques](#marques)
 
+Les données sont retournées au format *.json.
+
+Ci-dessous le paramètre {{host}} représente l'URL que vous paramètrerez. Par exemple `localhost:3000/v1` (le port étant paramétré dans votre fichier `.env` et le "v1" dans index.js, ligne 18).
+
 ### Articles
 
-Détail des données retournées :
+#### Détail des données retournées :
 
 - id,
 - nom,
@@ -50,43 +62,101 @@ Détail des données retournées :
 - id et nom de la [catégorie](#catégories-perso),
 - id et nom du [rayon](#rayon-du-magasin).
 
-Retourne:
+#### Accéder aux données : 
 
-- tous les articles de la base de données
-- un article (en fonction de son id)
-- tous les articles pour une catégorie (en fonction de son id)
-- tous les articles pour une marque (en fonction de son id)
-- tous les articles pour un rayon (en fonction de son id)
+- Liste de tous les articles de la base de données :
+
+  ```
+  GET {{host}}/items
+  ``` 
+
+- Accès à un article (en fonction de son id)
+  ```
+  GET {{host}}/items/:id
+  ``` 
+
+- Liste de tous les articles correspondant à un filtre par marque et/ou catégorie et/ou rayon. 
+  ```
+  GET {{host}}/items/filter?
+  ```
+
+  Exemple : pour obtenir la liste des articles concernant à la fois une catégorie précise, dans un rayon donné et pour une certaine marque : 
+  
+  ```
+  GET {{host}}/items/filter?shelf=Epicerie sucrée&category=Friandises&brand=Lindt
+  ```
 
 ### Catégories perso
 
 Une catégorie représente la façon dont un utilisateur classe un article (dans sa tête ou dans son cellier), ne correspond pas forcément aux rayons du magasin.
 Donnée facultative.
 
-Retourne:
+#### Détail des données retournées :
 
-- toutes les catégories
-- 1 catégorie via son id
+- id,
+- nom
+
+#### Accéder aux données : 
+
+- Liste de toutes les catégories
+  
+  ```
+  GET {{host}}/categories
+  ``` 
+
+- Accès à une catégorie via son id
+    
+  ```
+  GET {{host}}/categories/:id
+  ```
 
 ### Rayon (du magasin)
 
 Un rayon représente le rayon du magasin où on peut trouver cet article.
 Donnée facultative.
 
-Retourne:
+#### Détail des données retournées :
 
-- tous les rayons
-- 1 rayon via son id
+- id,
+- nom
+
+#### Accéder aux données : 
+
+- Liste de tous les rayons
+  
+  ```
+  GET {{host}}/shelves
+  ``` 
+
+- Accès à un rayon via son id
+    
+  ```
+  GET {{host}}/shelves/:id
+  ```
 
 ### Marques
 
 La marque permet de préciser la marque voulue pour un article.
 Donnée facultative.
 
-Retourne:
+#### Détail des données retournées :
 
-- toutes les marques
-- 1 marque via son id
+- id,
+- nom
+
+#### Accéder aux données : 
+
+- Liste de tous les rayons
+  
+  ```
+  GET {{host}}/brands
+  ``` 
+
+- Accès à un rayon via son id
+    
+  ```
+  GET {{host}}/brands/:id
+  ```
 
 ## Fonctionnalités à venir
 
@@ -134,10 +204,3 @@ Vous pouvez accéder aux données avec le fichier `api.http` qui se trouve à la
 ### Précisions pour le seed
 
 Un fichier de seed avec quelques données (rien de bien équilibré... 😅) est dispo dans le [dossier data](https://github.com/VirginieLemaire/My-grocery-list/tree/main/data).
-
-Les accès aux articles (items) sont basés sur une vue qui **a besoin des id** de marque, catégorie et rayon. Or ces données sont facultatives pour l'utilisateur (s'il a envie d'ajouter un article sans se prendre la tête).
-
-Pour cette raison :
-
-- la 1ère entrée des tables marque, catégorie et rayon est "", ce qui lui attribue l'id 1
-- pour les entrées sans ces données dans la table item, la valeur par défaut est 1 (voir le [deploy init](https://github.com/VirginieLemaire/My-grocery-list/blob/main/migrations/deploy/init.sql))

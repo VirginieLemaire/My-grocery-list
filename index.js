@@ -19,5 +19,5 @@ app.use('/v1', router);
 
 //LANCEMENT DU SERVEUR
 app.listen(PORT, () => {
-    console.log(`App on http://localhost:${PORT}`);
+    console.log(`App on http://localhost:${PORT}/v1`);
 });

@@ -81,7 +81,7 @@ class Item extends Generic {
     //     }
     // }
     //TODO supprimer un article de la base de données
-    //TODO factoriser les findBy
+
     
 }
 
