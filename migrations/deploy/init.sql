@@ -5,15 +5,15 @@ BEGIN;
 --1) les tables dont les id seront FK d'autres tables
 CREATE TABLE category (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL UNIQUE
 );
 CREATE TABLE shelf (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL UNIQUE
 );
 CREATE TABLE brand (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL UNIQUE
 );
 --2) les tables avec FK 
 CREATE TABLE item (

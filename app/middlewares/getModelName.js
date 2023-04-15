@@ -38,7 +38,7 @@ module.exports = {
         
         //Get model name from params
         const modelName = getModelNameFromParams(request.params.modelName);
-        // console.log("voici mon modelName: ", modelName);
+        //console.log("voici mon modelName: ", modelName);
 
         //get model with model name
         const model = models[modelName];
@@ -51,8 +51,9 @@ module.exports = {
         }
         //else put model in request.model
         request.model = model;
+        request.modelName = modelName;
         request.modelTableName = modelName.toLowerCase();
-        console.log("j'envoie : ", request.model, request.modelTableName )
+        //console.log("j'envoie : ", request.model, request.modelTableName )
         //and follow next middleware
         next();
 

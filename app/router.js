@@ -25,8 +25,10 @@ router.route('/items/filter?')
 */
 router.route('/:modelName')
   .all(addModelInRequest)
-  .get(catching(genericController.findAll)); //find all the elements correponding to the model name
-/**
+  .get(catching(genericController.findAll)) //find all the elements correponding to the model name
+  .post(catching(genericController.save)); //save an element in the model table
+
+  /**
  * @param {number} id the id of the element to get
  */
 router.route('/:modelName/:id')

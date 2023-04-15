@@ -13,7 +13,7 @@ module.exports.catching = (funct) => {
             //Give error in console
             console.trace(error);
             //Send it to front-end
-            response.status(500).send(error.errors || "ça ne fonctionne pas...");
+            response.status(500).send(error.errors || error.message);
         }
     }
 }

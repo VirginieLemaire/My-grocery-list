@@ -1,4 +1,5 @@
 const pool = require('../database');
+// TODO : add schema to validate fields
 
 class Generic {
     /**
@@ -30,10 +31,10 @@ class Generic {
         }
     }
 
-        //get one row of a table identified by its id
+    //get one row of a table identified by its id
     /**
      * Generic method to fetch a single row from the database
-     * @param {number} id id the <tablename> we're looking for
+     * @param {number} id id in the <tablename> we're looking for
      * @returns {<tablename> | null} null if no <tablename> matches the given id in database
      * @async
      * @static
@@ -51,6 +52,30 @@ class Generic {
             throw new Error(error.detail ? error.detail : error.message);
         }
     }
+
+    // inserts a new row in a table
+    /**
+     * Generic method to save a new row in a table
+     * @param {object} datas object containing model & table names
+     * @param {object} body object containing the data to save
+     * @returns {<tablename> | null} null if no <tablename> matches the given id in database
+     * @async
+     */
+    async create() {
+        try {
+            const {rows} = await pool.query(`INSERT INTO ${this.modelTableName} (${Object.keys(this.body).join(", ")}) VALUES (${Object.keys(this.body).map((_, index) => `$${index + 1}`).join(", ")}) RETURNING id`, Object.values(this.body));
+
+            if (rows[0]) {
+                console.log(rows[0]);
+                return rows[0];
+            } else {
+                throw new Error(`Can't record in table ${this.modelTableName}`);
+            }
+        } catch(error) {
+            console.log(error);
+            throw new Error(error.detail ? error.detail : error.message);
+        }
+    } 
 
     
 }

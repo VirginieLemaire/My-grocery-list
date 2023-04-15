@@ -12,19 +12,14 @@ const itemController = {
         // console.log({queryString});
         // console.log("zou on envoie au modèle")
         const data = await Item.findByFilter(queryString);
-        //prévoir le cas où la donnée n'existe pas
+
         if (!data) {
-            //passer au middleware suivant, arrêter la fonction
+            // go to new middleware and stop function
             next();
             return;
         }
         response.json(data);
     },
-
-    //TODO Ajouter un article dans la base de données
-    //TODO modifier un article dans la base de données (update, delete)
-    //TODO factoriser les findBy
-
 };
 
 module.exports = itemController;
