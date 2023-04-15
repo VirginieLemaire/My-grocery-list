@@ -8,8 +8,9 @@ const itemController = {
         if (request.query.brand) queryString.brand = request.query.brand;
         if (request.query.category) queryString.category = request.query.category;
         if (request.query.shelf) queryString.shelf = request.query.shelf;
-        console.log({queryString});
-        console.log("zou on envoie au modèle")
+        if (request.query.name) queryString.name = request.query.name;
+        // console.log({queryString});
+        // console.log("zou on envoie au modèle")
         const data = await Item.findByFilter(queryString);
         //prévoir le cas où la donnée n'existe pas
         if (!data) {

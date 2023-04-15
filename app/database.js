@@ -7,7 +7,6 @@ const pool = new Pool({
 });
 //pour passer en production
 if (process.env.NODE_ENV === 'production') {
-    //un truc de config pour la version de prod sur héroku, => évitera des messages d'erreur
     config.ssl = {
         rejectUnauthorized: false
     };
