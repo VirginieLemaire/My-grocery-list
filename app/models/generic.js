@@ -63,7 +63,8 @@ class Generic {
      */
     async create() {
         try {
-            const {rows} = await pool.query(`INSERT INTO ${this.modelTableName} (${Object.keys(this.body).join(", ")}) VALUES (${Object.keys(this.body).map((_, index) => `$${index + 1}`).join(", ")}) RETURNING id`, Object.values(this.body));
+            console.log("body", this.body);
+            const {rows} = await pool.query(`INSERT INTO ${this.modelTableName} (${Object.keys(this.body).join(", ")}) VALUES (${Object.keys(this.body).map((_, index) => `$${index + 1}`).join(", ")}) RETURNING *`, Object.values(this.body));
 
             if (rows[0]) {
                 console.log(rows[0]);

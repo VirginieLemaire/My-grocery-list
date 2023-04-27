@@ -47,7 +47,7 @@ const swaggerDefinition = {
                   "content": {
                     "application/json; charset=utf-8": {
                       "schema": {
-                        "$ref": "#/components/schemas/Items"
+                        "$ref": "#//Items"
                         }
                     }
                   }
@@ -64,6 +64,45 @@ const swaggerDefinition = {
                 }
               },
           },
+          "post": {
+            "tags": [
+              "Item"
+            ],
+            "summary": "Create a new item",
+            "description": "Add a new item in the database, with informations like brand, category or shelf",
+            "operationId": "addItems",
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/requestBodies/Item"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "An object containing the id of the new item",
+                "content": {
+                  "application/json; charset=utf-8": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Item"
+                      }
+                  }
+                }
+              },
+              "default": {
+                  "description": "unexpected error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+              }
+            },
+        },
         },
         "/items/{itemId}": {
         "get": {
@@ -132,17 +171,17 @@ const swaggerDefinition = {
                         "type": "string",
                         "example": "Bio",
                     },
-                    "brand": {
+                    "brand_id": {
                         "type": "integer",
                         "format": "int64",
                         "example": 1
                     },
-                    "category": {
+                    "category_id": {
                         "type": "integer",
                         "format": "int64",
                         "example": 1
                     },
-                    "shelf": {
+                    "shelf_id": {
                         "type": "integer",
                         "format": "int64",
                         "example": 1
@@ -171,8 +210,41 @@ const swaggerDefinition = {
                   }
                 }
             }            
-        }
+        },
+        "requestBodies": {
+          "Item": {
+              "type": "object",
+              "required": [
+                  "name"
+              ],
+              "properties": {
+                  "name": {
+                      "type": "string",
+                      "example": "Poire",
+                  },
+                  "details": {
+                      "type": "string",
+                      "example": "Bio",
+                  },
+                  "brand_id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 1
+                  },
+                  "category_id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 1
+                  },
+                  "shelf_id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 1
+                  },
+              }
+          },
     },
+  }
 
 };
 
