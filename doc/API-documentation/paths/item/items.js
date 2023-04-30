@@ -46,26 +46,26 @@ module.exports = {
         }
         },
         "responses": {
-        "201": {
-            "description": "Created. Send an object containing the informations about the new item",
-            "content": {
-            "application/json; charset=utf-8": {
-                "schema": {
-                "$ref": "#/components/schemas/Item"
-                }
-            }
-            }
-        },
-        "default": {
-            "description": "unexpected error",
-            "content": {
-                "application/json": {
-                "schema": {
-                    "$ref": "#/components/schemas/Error"
+            "201": {
+                "description": "Created. Send an object containing the informations about the new item",
+                "content": {
+                "application/json; charset=utf-8": {
+                    "schema": {
+                    "$ref": "#/components/schemas/Item"
+                    }
                 }
                 }
+            },
+            "default": {
+                "description": "unexpected error",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/Error"
+                    }
+                    }
+                }
             }
-        }
         },
     },
 }

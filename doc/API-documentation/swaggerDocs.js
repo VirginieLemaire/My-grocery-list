@@ -8,9 +8,13 @@ const customCss = require('./customCSS');
 const swaggerDefinition = {
     "openapi":"3.0.2",
     "info": {
-      "title":"My grocery list API",
+      "title":"My grocery list API - documentation",
       "version":"1.0",
-      "description":"API for a grocery list app",
+      "description":"Welcome to the documentation of the API that allows you to create a grocery list",
+      "contact": {
+        "name": "profil GitHub de Virginie",
+        "url": "https://github.com/VirginieLemaire",
+      }
     },
     "servers": [
         {
@@ -52,7 +56,7 @@ const swaggerSpecifications = swaggerJsdoc(options);
 
 const cssOptions = {
   customCss : customCss,
-  customSiteTitle: "My grocery list API",
+  customSiteTitle: "Documentation of My Grocery list API",
 };
 
 

@@ -7,16 +7,16 @@ module.exports = {
         "description": "Give informations about one item",
         "operationId": "getItem",
         "parameters": [
-        {
-            "name": "itemId",
-            "in": "path",
-            "description": "The id of the item to retrieve",
-            "required": true,
-            "schema": {
-                "type": "integer",
-                "example": 1
-            }
-        }
+          {
+              "name": "itemId",
+              "in": "path",
+              "description": "The id of the item to retrieve",
+              "required": true,
+              "schema": {
+                  "type": "integer",
+                  "example": 1
+              }
+          }
         ],
         "responses": {
         "200": {
