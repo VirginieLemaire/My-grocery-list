@@ -47,7 +47,7 @@ module.exports = {
         },
         "responses": {
         "201": {
-            "description": "Created",
+            "description": "Created. Send an object containing the informations about the new item",
             "content": {
             "application/json; charset=utf-8": {
                 "schema": {

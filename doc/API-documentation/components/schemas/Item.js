@@ -33,5 +33,17 @@ module.exports = {
             "format": "int64",
             "example": 1
         },
+        "brand": {
+            "type": ["string", "null"],
+            "example": "null",
+        },
+        "category": {
+          "type": ["string", "null"],
+          "example": "Fruits",
+         },
+        "shelf": {
+          "type": ["string", "null"],
+          "example": "Fruits - légumes",
+        },
     }
 };
