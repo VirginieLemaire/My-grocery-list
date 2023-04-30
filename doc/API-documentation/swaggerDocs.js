@@ -3,6 +3,7 @@ const PORT = process.env.PORT;
 // imports properties
 const paths = require('./paths');
 const components = require('./components');
+const customCss = require('./customCSS');
 
 const swaggerDefinition = {
     "openapi":"3.0.2",
@@ -44,10 +45,15 @@ const options = {
     swaggerDefinition,
     // Paths to files containing OpenAPI definitions relative
     // to the root directory of the API
-    apis: ["../app/*/*/*.js"],
+    apis: ["../app/*/*/*.js"]
 }
 
 const swaggerSpecifications = swaggerJsdoc(options);
 
+const cssOptions = {
+  customCss : customCss,
+  customSiteTitle: "My grocery list API",
+};
 
-module.exports = swaggerSpecifications;
+
+module.exports = { swaggerSpecifications, cssOptions };
