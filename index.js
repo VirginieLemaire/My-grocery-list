@@ -1,23 +1,26 @@
-//REQUIRE
+// REQUIRE
 require('dotenv').config();
 const express = require('express');
 const router = require('./app/router');
+const swaggerUi = require('swagger-ui-express');
+const { swaggerSpecifications, cssOptions } = require('./doc/API-documentation/swaggerDocs');
 
-//USE
+// USE
 const app = express();
 
-
-//body-parser pour les routes post qui rendent du json
+// body-parser for json
 app.use(express.json());
 
-//PORT
+// swagger documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecifications, cssOptions));
+
+// PORT
 const PORT = process.env.PORT;
 
-//une fois tout defini on utilise le router
-//app.use(router); ou plutôt pour gèrer les versions:
-app.use('/v1', router);
+// ROUTER
+app.use('/api', router);
 
-//LANCEMENT DU SERVEUR
+// SERVER
 app.listen(PORT, () => {
-    console.log(`App on http://localhost:${PORT}/v1`);
+    console.log(`App on http://localhost:${PORT}/api or http://localhost:${PORT}/api-docs for the documentation`);
 });

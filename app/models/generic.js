@@ -12,7 +12,6 @@ class Generic {
         }
     }
 
-    //get all <tableName>
     /**
      * Generic method to fetch all rows of a table in the database
      * @param {object} datas object containing model & table names
@@ -22,8 +21,11 @@ class Generic {
      */
      static async findAll(datas) {
         try {
-            //console.log("ma table", datas.modelTableName);
-            const {rows} = await pool.query(`SELECT * FROM ${datas.modelTableName}`);
+            // console.log("ma table", datas.modelTableName);
+            // Select view item_with_everything instead of table 'item' if we're looking for items ti retrieve all the informations (id and name of brand, category and shelf)
+            const table = datas.modelTableName === 'item' ? 'item_with_everything' : datas.modelTableName;
+            
+            const {rows} = await pool.query(`SELECT * FROM ${table}`);
             return rows.map(row => new datas.model(row));
         } catch (error) {
             console.log(error);
@@ -31,7 +33,6 @@ class Generic {
         }
     }
 
-    //get one row of a table identified by its id
     /**
      * Generic method to fetch a single row from the database
      * @param {number} id id in the <tablename> we're looking for
@@ -41,7 +42,10 @@ class Generic {
      */
      static async findById(datas, id) {
         try {
-            const {rows} = await pool.query(`SELECT * FROM ${datas.modelTableName} WHERE id=$1`, [id]);
+            // Select view item_with_everything instead of table 'item' if we're looking for items ti retrieve all the informations (id and name of brand, category and shelf)
+            const table = datas.modelTableName === 'item' ? 'item_with_everything' : datas.modelTableName;
+
+            const {rows} = await pool.query(`SELECT * FROM ${table} WHERE id=$1`, [id]);
             if (rows[0]) {
                 return new datas.model(rows[0]);
             }
@@ -53,7 +57,6 @@ class Generic {
         }
     }
 
-    // inserts a new row in a table
     /**
      * Generic method to save a new row in a table
      * @param {object} datas object containing model & table names
@@ -63,10 +66,11 @@ class Generic {
      */
     async create() {
         try {
-            const {rows} = await pool.query(`INSERT INTO ${this.modelTableName} (${Object.keys(this.body).join(", ")}) VALUES (${Object.keys(this.body).map((_, index) => `$${index + 1}`).join(", ")}) RETURNING id`, Object.values(this.body));
+            // console.log("body", this.body);
+            const {rows} = await pool.query(`INSERT INTO ${this.modelTableName} (${Object.keys(this.body).join(", ")}) VALUES (${Object.keys(this.body).map((_, index) => `$${index + 1}`).join(", ")}) RETURNING *`, Object.values(this.body));
 
             if (rows[0]) {
-                console.log(rows[0]);
+                // console.log(rows[0]);
                 return rows[0];
             } else {
                 throw new Error(`Can't record in table ${this.modelTableName}`);
