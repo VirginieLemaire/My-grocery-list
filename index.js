@@ -18,9 +18,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecifications, css
 const PORT = process.env.PORT;
 
 // ROUTER
-app.use('/v1', router);
+app.use('/api', router);
 
 // SERVER
 app.listen(PORT, () => {
-    console.log(`App on http://localhost:${PORT}/v1 or http://localhost:${PORT}/api-docs for the documentation`);
+    console.log(`App on http://localhost:${PORT}/api or http://localhost:${PORT}/api-docs for the documentation`);
 });

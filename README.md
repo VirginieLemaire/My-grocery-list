@@ -40,7 +40,7 @@ Ce projet me permet de pratiquer diverses notions apprises en cours (code et org
 
 ## Fonctionnalités en place
 
-Uniquement en lecture et en local pour l'instant (voir [installation](#installation)).
+Accès en lecture et écriture, uniquement en local pour l'instant (voir [installation](#installation)).
 
 1. [Accès aux articles](#articles)
 2. [Accès aux catégories](#catégories-perso)
@@ -49,7 +49,7 @@ Uniquement en lecture et en local pour l'instant (voir [installation](#installat
 
 Les données sont retournées au format *.json.
 
-Ci-dessous le paramètre {{host}} représente l'URL que vous paramètrerez. Par exemple `localhost:3000/v1` (le port étant paramétré dans votre fichier `.env` et le "v1" dans index.js, ligne 18).
+Ci-dessous le paramètre {{host}} représente l'URL que vous paramètrerez. Par exemple `localhost:3000/api` (le port étant paramétré dans votre fichier `.env` et le "api" dans index.js, ligne 18).
 
 ### Articles
 
