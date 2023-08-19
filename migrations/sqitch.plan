@@ -3,3 +3,4 @@
 
 init 2021-09-04T13:06:22Z Virginie <student@teleporter> # create tables
 view 2021-09-04T15:12:01Z Virginie <student@teleporter> # item_with_everything
+genericUpdatingFunction 2023-08-19T17:54:31Z Virginie Lemaire <virginielemaire@free.fr> # create a generic function to update every table given in argument

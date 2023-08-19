@@ -22,7 +22,7 @@ class Generic {
      static async findAll(datas) {
         try {
             // console.log("ma table", datas.modelTableName);
-            // Select view item_with_everything instead of table 'item' if we're looking for items ti retrieve all the informations (id and name of brand, category and shelf)
+            // Select postgreSQL's view "item_with_everything" instead of table 'item' if we're looking for items to retrieve all the informations (id and name of brand, category and shelf)
             const table = datas.modelTableName === 'item' ? 'item_with_everything' : datas.modelTableName;
             
             const {rows} = await pool.query(`SELECT * FROM ${table}`);

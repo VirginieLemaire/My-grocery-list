@@ -36,12 +36,12 @@ module.exports = {
             model: request.model,
             body: request.body
         };
-        // vérifier que le body n'est pas vide
+        // check if body is empty
         if (Object.keys(request.body).length === 0) {
             response.status(400).json("Il n'y a pas de données à enregistrer");
             return;
         }
-        // Savoir s'il s'agit d'un ajout ou d'une modification
+        // check if request is about updating or creating
         if (request.params.id) {
             console.log("on est dans le cas d'une modification");
         } else {
