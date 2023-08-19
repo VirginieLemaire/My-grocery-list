@@ -54,7 +54,7 @@ module.exports = {
                 return;
             }
 
-            response.json(data);
+            response.status(201).json(data);
         }
 
     }
