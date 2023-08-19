@@ -2,9 +2,9 @@ BRAND : name
 sort, 01 ITEM, 0N CATEGORY
 CATEGORY : name
 
-make, 0N ITEM, 01 BRAND
+make, 01 ITEM, 0N BRAND
 ITEM : name, brand, details
-store, 01 SHELF, 0N ITEM
+store, 0N SHELF, 01 ITEM
 
 ::
 SHELF : name
