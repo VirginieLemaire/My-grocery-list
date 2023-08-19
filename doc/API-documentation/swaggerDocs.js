@@ -33,7 +33,7 @@ const swaggerDefinition = {
         },
         {
           "name": "Category",
-          "description": "The category of an item corresponding on how you sort it"
+          "description": "Personnal category = the category of an item corresponding on how you sort it"
         },
         {
           "name": "Shelf",
