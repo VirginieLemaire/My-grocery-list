@@ -9,11 +9,11 @@ const getModelNameFromParams = (string) => {
     //To manage some english plurals : transform the string if needed
     if (string.match(/ves$/)) {
         string = string.replace(/ves$/,'fs');
-        console.log("ma new string: ",string);
+        // console.log("ma new string: ",string);
     }
     if (string.match(/ies$/)) {
         string = string.replace(/ies$/,'ys');
-        console.log("ma new string: ",string);
+        // console.log("ma new string: ",string);
     }
 
    /*  In params, names are plural and lower case so we'll :
@@ -34,7 +34,7 @@ module.exports = {
      * @returns error if no model corresponding
      */
     addModelInRequest(request, response, next) {
-        console.log("je rentre dans AddModelInRequest");
+        // console.log("je rentre dans AddModelInRequest");
         
         //Get model name from params
         const modelName = getModelNameFromParams(request.params.modelName);

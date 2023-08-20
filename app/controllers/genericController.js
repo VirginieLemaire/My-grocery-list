@@ -12,6 +12,7 @@ module.exports = {
             model: request.model
         };
         const data = await request.model.findAll(datas);
+        response.set('Content-Type', 'application/json');
         response.json(data);
     },
 
@@ -27,6 +28,7 @@ module.exports = {
             next();
             return;
         }
+        response.set('Content-Type', 'application/json');
         response.json(data);
     },
     // CREATE
@@ -38,7 +40,8 @@ module.exports = {
         };
         // check if body is empty
         if (Object.keys(request.body).length === 0) {
-            response.status(400).json("Il n'y a pas de données à enregistrer");
+            response.set('Content-Type', 'application/json');
+            response.status(400).json({message: "Il n'y a pas de données à enregistrer"});
             return;
         }
         // check if request is about updating or creating
@@ -53,7 +56,7 @@ module.exports = {
                 next();
                 return;
             }
-
+            response.set('Content-Type', 'application/json');
             response.status(201).json(data);
         }
 
