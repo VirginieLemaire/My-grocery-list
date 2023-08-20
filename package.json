@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles",
+    "test": "NODE_ENV=test jest",
     "start": "node index.js",
     "dev": "node-dev index.js"
   },
@@ -26,8 +26,10 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "__tests__/settings/"
+    ],
+    "setupFilesAfterEnv": ["./__tests__/settings/setup.js"]
   }
 }
