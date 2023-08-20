@@ -1,24 +1,8 @@
 // REQUIRE
 require('dotenv').config();
-const express = require('express');
-const router = require('./app/router');
-const swaggerUi = require('swagger-ui-express');
-const { swaggerSpecifications, cssOptions } = require('./doc/API-documentation/swaggerDocs');
+const app = require('./app/app');
 
-// USE
-const app = express();
-
-// body-parser for json
-app.use(express.json());
-
-// swagger documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecifications, cssOptions));
-
-// PORT
-const PORT = process.env.PORT;
-
-// ROUTER
-app.use('/api', router);
+const PORT = process.env.PORT || 3001;
 
 // SERVER
 app.listen(PORT, () => {

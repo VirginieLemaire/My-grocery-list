@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test jest",
     "start": "node index.js",
     "dev": "node-dev index.js"
   },
@@ -17,9 +17,19 @@
     "dotenv": "^10.0.0",
     "eslint": "^8.47.0",
     "express": "^4.18.2",
+    "jest": "^29.6.2",
     "joi": "^17.9.1",
     "pg": "^8.7.1",
+    "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "__tests__/settings/"
+    ],
+    "setupFilesAfterEnv": ["./__tests__/settings/setup.js"]
   }
 }

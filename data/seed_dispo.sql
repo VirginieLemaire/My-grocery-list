@@ -1,5 +1,8 @@
 BEGIN;
 
+-- on supprime toutes les données présentes dans les tables en faisant repartir les id à zéro (au cas où)
+TRUNCATE TABLE category, brand, shelf, item RESTART IDENTITY CASCADE;
+
 --je commence par les tables ayant des champs qui se seront FK dans d'autres tables
 INSERT INTO brand ("name") VALUES 
     ('Bjorg'),

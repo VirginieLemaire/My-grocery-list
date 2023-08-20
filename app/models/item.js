@@ -44,7 +44,7 @@ class Item extends Generic {
             }
             //transform in a string and delete "," added by .join()
             const query = `${partOfQUery.join().replace(/,/g,"")}`;
-            console.log(query);
+            // console.log(query);
 
             //send request
             const {rows} = await pool.query(`SELECT * FROM item_with_everything ${query}`, [...bind]);

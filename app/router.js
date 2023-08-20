@@ -36,11 +36,10 @@ router.route('/:modelName/:id')
   .get(catching(genericController.findOne));//find one element corresponding to the id
 
 
-
 /**
  * In case no one answers
  * 
  */
-router.use((_, response) => response.status(404).json('Endpoint non trouvé'));
+router.use((_, response) => response.status(404).json({error: 'Endpoint non trouvé'}));
  
 module.exports = router;
