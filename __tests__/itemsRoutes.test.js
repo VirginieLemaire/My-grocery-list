@@ -58,26 +58,26 @@ describe('GET /api/items/1', () => {
     });
 });
 
-// describe('POST /api/items', () => {
-//     it('should return the item created', async() => {
-//         return (
-//             await request(app)
-//             .post('/api/items')
-//             .send({
-//                 name: 'test',
-//                 details: 'test too',
-//             })
-//             .expect('Content-Type', /json/)
-//             .expect(201)
-//             .then(response => {
-//                 expect(response.body).toEqual(
-//                     expect.objectContaining({
-//                         id: expect.any(Number),
-//                         name: expect.any(String),
-//                         details: expect.any(String)
-//                     }),
-//                 );
-//             })
-//         );
-//     });
-// });
+describe('POST /api/items', () => {
+    it('should return the item created', async() => {
+        return (
+            await request(app)
+            .post('/api/items')
+            .send({
+                name: 'test',
+                details: 'test too',
+            })
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .then(response => {
+                expect(response.body).toEqual(
+                    expect.objectContaining({
+                        id: expect.any(Number),
+                        name: expect.any(String),
+                        details: expect.any(String)
+                    }),
+                );
+            })
+        );
+    });
+});

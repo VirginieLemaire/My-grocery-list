@@ -39,24 +39,24 @@ describe('GET /api/shelves/1', () => {
     });
 });
 
-// describe('POST /api/shelves', () => {
-//     it('should return the shelf created', async() => {
-//         return (
-//             await request(app)
-//             .post('/api/shelves')
-//             .send({
-//                 name: 'test'
-//             })
-//             .expect('Content-Type', /json/)
-//             .expect(201)
-//             .then(response => {
-//                 expect(response.body).toEqual(
-//                     expect.objectContaining({
-//                         id: expect.any(Number),
-//                         name: expect.any(String),
-//                     }),
-//                 );
-//             })
-//         );
-//     });
-// });
+describe('POST /api/shelves', () => {
+    it('should return the shelf created', async() => {
+        return (
+            await request(app)
+            .post('/api/shelves')
+            .send({
+                name: 'test'
+            })
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .then(response => {
+                expect(response.body).toEqual(
+                    expect.objectContaining({
+                        id: expect.any(Number),
+                        name: expect.any(String),
+                    }),
+                );
+            })
+        );
+    });
+});

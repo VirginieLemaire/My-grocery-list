@@ -39,24 +39,24 @@ describe('GET /api/brands/1', () => {
     });
 });
 
-// describe('POST /api/brands', () => {
-//     it('should return the brand created', async() => {
-//         return (
-//             await request(app)
-//             .post('/api/brands')
-//             .send({
-//                 name: 'test'
-//             })
-//             .expect('Content-Type', /json/)
-//             .expect(201)
-//             .then(response => {
-//                 expect(response.body).toEqual(
-//                     expect.objectContaining({
-//                         id: expect.any(Number),
-//                         name: expect.any(String),
-//                     }),
-//                 );
-//             })
-//         );
-//     });
-// });
+describe('POST /api/brands', () => {
+    it('should return the brand created', async() => {
+        return (
+            await request(app)
+            .post('/api/brands')
+            .send({
+                name: 'test'
+            })
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .then(response => {
+                expect(response.body).toEqual(
+                    expect.objectContaining({
+                        id: expect.any(Number),
+                        name: expect.any(String),
+                    }),
+                );
+            })
+        );
+    });
+});
