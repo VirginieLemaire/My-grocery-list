@@ -33,7 +33,10 @@ router.route('/:modelName')
  */
 router.route('/:modelName/:id')
   .all(addModelInRequest)
-  .get(catching(genericController.findOne));//find one element corresponding to the id
+  .get(catching(genericController.findOne))//find one element corresponding to the id
+  .patch(function (request, response) {
+    response.status(200).json({message: 'OK'});
+  }); //update one element corresponding to the id
 
 
 /**

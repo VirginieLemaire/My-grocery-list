@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 //connection to DB with pooling
 const {Pool} = require('pg');
 

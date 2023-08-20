@@ -60,3 +60,25 @@ describe('POST /api/brands', () => {
         );
     });
 });
+
+describe('PATCH /api/brands/1', () => {
+    it('should return the brand updated', async() => {
+        return (
+            await request(app)
+            .patch('/api/brands/1')
+            .send({
+                name: 'test'
+            })
+            .expect(200)
+            // .expect('Content-Type', /json/)
+            // .then(response => {
+            //     expect(response.body).toEqual(
+            //         expect.objectContaining({
+            //             id: expect.any(Number),
+            //             name: expect.any(String),
+            //         }),
+            //     );
+            // })
+        );
+    });
+});
