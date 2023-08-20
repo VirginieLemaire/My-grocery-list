@@ -67,18 +67,20 @@ describe('PATCH /api/brands/1', () => {
             await request(app)
             .patch('/api/brands/1')
             .send({
-                name: 'test'
+                name: 'modified test'
             })
             .expect(200)
             .expect('Content-Type', /json/)
-            // .then(response => {
-            //     expect(response.body).toEqual(
-            //         expect.objectContaining({
-            //             id: expect.any(Number),
-            //             name: expect.any(String),
-            //         }),
-            //     );
-            // })
+            .then(response => {
+                expect(response.body).toEqual(
+                    expect.objectContaining({
+                        update_table_dynamic: expect.objectContaining({
+                            id: expect.any(Number),
+                            name: expect.any(String),
+                        }),
+                    }),
+                );
+            })
         );
     });
 });

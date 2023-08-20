@@ -58,3 +58,28 @@ describe('POST /api/categories', () => {
         );
     });
 });
+
+describe('PATCH /api/categories/1', () => {
+    it('should return the category updated', async() => {
+        return (
+            await request(app)
+            .patch('/api/categories/1')
+            .send({
+                name: 'modified test'
+            })
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .then(response => {
+                expect(response.body).toEqual(
+                    expect.objectContaining({
+                        update_table_dynamic: expect.objectContaining({
+                            id: expect.any(Number),
+                            name: expect.any(String),
+                        }),
+                    }),
+                );
+            })
+        );
+    });
+});
+

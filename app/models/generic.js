@@ -83,20 +83,20 @@ class Generic {
 
     async update() {
         try {
-            console.log("this", this)
             const changingDatas = {
                 id: parseInt(this.id),
                 ...this.body
             };
-            console.log("changingDatas", changingDatas);
-            // const {rows} = await pool.query(`SELECT update_table_dynamic($1,$2)`, [this.modelTableName, changingDatas]);
-            // if (rows[0]) {
-            //     console.log(rows[0]);
-            //     return rows[0];
-            // } else {
-            //     throw new Error(`Can't update table ${this.modelTableName}`);
-            // }
-            return {}
+
+            const {rows} = await pool.query(`SELECT update_table_dynamic($1,$2)`, [this.modelTableName, changingDatas]);
+
+            if (rows[0]) {
+                console.log(rows[0]);
+                return rows[0];
+            } else {
+                throw new Error(`Can't update table ${this.modelTableName}`);
+            }
+            
         } catch(error) {
             console.log(error);
             throw new Error(error.detail ? error.detail : error.message);
