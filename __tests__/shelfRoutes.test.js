@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../app/app');
 
 describe('GET /api/shelves', () => {
-    it('should return an array of shelves', async() => {
+    it('should return an array of shelves', async(done) => {
         return await request(app)
             .get('/api/shelves')
             .expect('Content-Type', /json/)
@@ -17,6 +17,7 @@ describe('GET /api/shelves', () => {
                     ]),
                 );
             });
+            done();
     });
 });
 

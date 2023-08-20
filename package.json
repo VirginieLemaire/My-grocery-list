@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "jest --watchAll --testTimeout=10000 --detectOpenHandles",
+    "test": "NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles",
     "start": "node index.js",
     "dev": "node-dev index.js"
   },
