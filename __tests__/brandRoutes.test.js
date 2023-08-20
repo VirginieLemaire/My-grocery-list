@@ -70,7 +70,7 @@ describe('PATCH /api/brands/1', () => {
                 name: 'test'
             })
             .expect(200)
-            // .expect('Content-Type', /json/)
+            .expect('Content-Type', /json/)
             // .then(response => {
             //     expect(response.body).toEqual(
             //         expect.objectContaining({

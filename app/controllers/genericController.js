@@ -46,9 +46,17 @@ module.exports = {
         }
         // check if request is about updating or creating
         if (request.params.id) {
-            console.log("on est dans le cas d'une modification");
+            datas.id = request.params.id;
+            // console.log("on est dans le cas d'une modification");
+            const data = await new datas.model(datas).update();
+            if (!data) {
+                // go next middleware and stop function
+                next();
+                return;
+            }
+            response.json(data);
         } else {
-            console.log("on est dans le cas d'un ajout");
+            // console.log("on est dans le cas d'un ajout");
             const data = await new datas.model(datas).create();
 
             if (!data) {
