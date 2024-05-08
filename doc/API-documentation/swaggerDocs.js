@@ -18,8 +18,8 @@ const swaggerDefinition = {
     },
     "servers": [
         {
-            "url":`http://localhost:${PORT}/api`,
-            "description":"Development server"
+          "url":`${process.env.BASE_URL}:${PORT}/api`,
+          "description":"BDD server"
         }
     ],
     "tags": [

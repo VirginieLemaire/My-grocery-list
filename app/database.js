@@ -13,11 +13,11 @@ const pool = new Pool({
     connectionString: DB_URL
 });
 
-if (process.env.NODE_ENV === 'production') {
-    config.ssl = {
-        rejectUnauthorized: false
-    };
-}
+// if (process.env.NODE_ENV === 'production') {
+//     config.ssl = {
+//         rejectUnauthorized: false
+//     };
+// }
 
 
 module.exports = pool;

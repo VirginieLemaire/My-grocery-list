@@ -6,5 +6,5 @@ const PORT = process.env.PORT || 3001;
 
 // SERVER
 app.listen(PORT, () => {
-    console.log(`App on http://localhost:${PORT}/api or http://localhost:${PORT}/api-docs for the documentation`);
+    console.log(`App on ${process.env.BASE_URL}:${PORT}/api or ${process.env.BASE_URL}:${PORT}/api-docs for the documentation`);
 });

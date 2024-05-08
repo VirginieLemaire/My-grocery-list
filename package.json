@@ -8,12 +8,14 @@
   },
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "start": "node index.js",
-    "dev": "node-dev index.js"
+    "start": "./node_modules/.bin/dotenvx run --env-file=.env.production -- node index.js",
+    "dev": "./node_modules/.bin/dotenvx run --env-file=.env.development -- node-dev index.js"
   },
   "author": "Virginie Lemaire",
   "license": "ISC",
   "dependencies": {
+    "@dotenvx/dotenvx": "^0.37.1",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "eslint": "^8.47.0",
     "express": "^4.18.2",
@@ -30,6 +32,11 @@
       "/node_modules/",
       "__tests__/settings/"
     ],
-    "setupFilesAfterEnv": ["./__tests__/settings/setup.js"]
+    "setupFilesAfterEnv": [
+      "./__tests__/settings/setup.js"
+    ]
+  },
+  "devDependencies": {
+    "node-dev": "^8.0.0"
   }
 }
