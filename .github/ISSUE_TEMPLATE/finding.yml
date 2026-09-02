@@ -1,0 +1,65 @@
+name: "🔍 Finding — chose repérée en passant"
+description: "Comportement bizarre, dette technique ou code pas optimal repéré pendant une autre tâche, hors scope de celle-ci."
+title: "[finding] "
+labels: ["finding"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Pour tout ce qu'on remarque "en passant" pendant un audit ou une feature, sans que ce soit le sujet du moment —
+        un truc du genre "c'était déjà comme ça" ou "cette réponse d'API est bizarre mais je ne veux pas y toucher maintenant".
+
+        Le but : ne rien perdre, sans polluer le fil en cours.
+
+        **Si on décide finalement de ne pas traiter :** ferme l'issue avec un commentaire expliquant pourquoi
+        (raison technique, priorité trop basse, cohérence à garder, etc.). Une issue fermée avec sa raison documentée
+        vaut mieux qu'un TODO oublié dans le code.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Sévérité
+      description: |
+        Choisis le niveau, puis ajoute le label correspondant sur l'issue (severity: danger / warning / improvement) —
+        le formulaire ne le fait pas tout seul.
+      options:
+        - "danger — risque réel : sécurité, perte/corruption de données, échec silencieux"
+        - "warning — dette technique réelle mais pas urgente, incohérence à corriger un jour"
+        - "improvement — amélioration de qualité/lisibilité, sans risque fonctionnel"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: Ce qui a été trouvé
+      description: Quoi précisément, où (fichier/ligne ou route), et comment on est tombé dessus
+      placeholder: |
+        Ex : la réponse de PATCH /api/items/:id est { update_table_dynamic: {...} } au lieu d'un objet Item classique —
+        remarqué en documentant la route dans Swagger (voir #34/#52).
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-not-now
+    attributes:
+      label: Pourquoi ce n'est pas traité dans la tâche en cours
+      description: Hors scope, prend plus de temps, décision à discuter, etc.
+    validations:
+      required: false
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact si on ne fait rien
+      description: Qui/quoi est concerné si ça reste comme ça (consommateurs de l'API, prochain dev, etc.)
+    validations:
+      required: false
+
+  - type: textarea
+    id: fix
+    attributes:
+      label: Piste de correction (optionnel)
+      description: Pas besoin d'une solution clé en main — juste une direction si tu en as une
+    validations:
+      required: false
