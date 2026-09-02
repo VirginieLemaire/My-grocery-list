@@ -1,5 +1,5 @@
 // REQUIRE
-require('dotenv').config();
+require('@dotenvx/dotenvx').config({logLevel: 'error', ignore: ['MISSING_ENV_FILE']});
 const express = require('express');
 const router = require('./router');
 const cors = require('cors');

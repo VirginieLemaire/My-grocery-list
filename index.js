@@ -1,5 +1,5 @@
 // REQUIRE
-require('dotenv').config();
+require('@dotenvx/dotenvx').config({logLevel: 'error', ignore: ['MISSING_ENV_FILE']});
 const app = require('./app/app');
 
 const PORT = process.env.PORT || 3001;

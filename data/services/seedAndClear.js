@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('@dotenvx/dotenvx').config({logLevel: 'error', ignore: ['MISSING_ENV_FILE']});
 const { exec } = require('node:child_process');
 
 exports.clearDatas = () => {
