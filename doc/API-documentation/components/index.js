@@ -7,7 +7,7 @@ const Brand = require('./schemas/brand');
 const {postItem, patchItem} = require('./requestBodies/item');
 const {postCategory} = require('./requestBodies/category');
 const {postShelf} = require('./requestBodies/shelf');
-const {postBrand} = require('./requestBodies/brand');
+const {postBrand, patchBrand} = require('./requestBodies/brand');
 
 module.exports = {
     "schemas": {
@@ -61,6 +61,7 @@ module.exports = {
       patchItem,
       postCategory,
       postShelf,
-      postBrand
+      postBrand,
+      patchBrand
     },
 }
