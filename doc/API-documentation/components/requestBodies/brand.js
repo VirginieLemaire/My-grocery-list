@@ -11,4 +11,15 @@ const postBrand =  {
     }
 };
 
-module.exports = {postBrand};
+// no "required" field: a PATCH only needs the fields being changed
+const patchBrand =  {
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "example": "Marque repère",
+        }
+    }
+};
+
+module.exports = {postBrand, patchBrand};

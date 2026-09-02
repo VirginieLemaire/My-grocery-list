@@ -11,4 +11,15 @@ const postCategory =  {
     }
 };
 
-module.exports = {postCategory};
+// no "required" field: a PATCH only needs the fields being changed
+const patchCategory =  {
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "example": "Boissons",
+        }
+    }
+};
+
+module.exports = {postCategory, patchCategory};
