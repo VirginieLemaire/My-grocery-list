@@ -24,10 +24,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    env:
-      NODE_ENV: test
-      DATABASE_TEST_URL: postgresql://postgres:postgres@localhost:5432/grocery_test
-
     steps:
       - uses: actions/checkout@v4
 
@@ -39,13 +35,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Apply migrations
+      - name: Create env file
         run: |
-          psql "$DATABASE_TEST_URL" -f migrations/deploy/init.sql
-          psql "$DATABASE_TEST_URL" -f migrations/deploy/genericUpdatingFunction.sql
-          psql "$DATABASE_TEST_URL" -f migrations/deploy/view.sql
-        env:
-          PGPASSWORD: postgres
+          cat <<EOF > .env.development
+          PORT=3001
+          DATABASE_URL=postgresql://postgres:postgres@localhost:5432/grocery_test
+          DATABASE_TEST_URL=postgresql://postgres:postgres@localhost:5432/grocery_test
+          BASE_URL=http://localhost
+          EOF
+
+      - name: Apply migrations
+        run: npm run migrate:test
 
       - name: Run tests
         run: npm test
