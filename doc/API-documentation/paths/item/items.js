@@ -56,6 +56,16 @@ module.exports = {
                 }
                 }
             },
+            "400": {
+                "description": "Empty body: nothing to save",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/Error"
+                    }
+                    }
+                }
+            },
             "default": {
                 "description": "unexpected error",
                 "content": {

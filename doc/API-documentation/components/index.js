@@ -42,19 +42,15 @@ module.exports = {
       "Error": {
           "type": "object",
           "required": [
-            "code",
-            "message"
+            "error"
           ],
           "properties": {
-            "code": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "message": {
-              "type": "string"
+            "error": {
+              "type": "string",
+              "example": "Endpoint non trouvé"
             }
           }
-      }            
+      }
     },
     "requestBodies": {
       postItem,
