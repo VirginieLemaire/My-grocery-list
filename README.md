@@ -13,6 +13,11 @@ Il a aussi pour vocation d'être accessible à d'autres personnes qui veulent d�
 - [🛒 MA LISTE DE COURSES : GROCERY LIST 🛒](#-ma-liste-de-courses--grocery-list-)
   - [Stack technique (pré-requis)](#stack-technique-pré-requis)
   - [Installation](#installation)
+    - [Variables d'environnement](#variables-denvironnement)
+    - [Base de données](#base-de-données)
+    - [Lancer le serveur](#lancer-le-serveur)
+    - [Lancer les tests](#lancer-les-tests)
+    - [Lint](#lint)
   - [Fonctionnalités](#fonctionnalités)
     - [en place](#en-place)
     - [à venir](#à-venir)
@@ -97,6 +102,12 @@ npm test
 ```
 
 Utilise `DATABASE_TEST_URL` défini dans `.env.development`.
+
+### Lint
+
+```bash
+npm run lint
+```
 </details>
 
 
@@ -114,23 +125,26 @@ Accès en local (voir [installation](#installation)).
    - filtrer la liste des articles en fonction de la marque, le rayon ou la Catégorie perso
    - accéder à un article en particulier
    - créer un article
+   - modifier un article
 - Catégories (category) :
    - accéder à la liste des catégories
    - accéder à une catégorie en particulier
    - créer une catégorie
+   - modifier une catégorie
 - Rayons (shelf) :
    - accéder à la liste des rayons
    - accéder à une rayon en particulier
    - créer une rayon
+   - modifier un rayon
 - marques (brand) :
    - accéder à la liste des marques
    - accéder à une marque en particulier
    - créer une marque
+   - modifier une marque
 - Documentation
 
 ### à venir
 
-- Modification d'articles, catégories, marques et rayons,
 - Suppression d'articles, catégories, marques et rayons.
 
 ## Précisions
