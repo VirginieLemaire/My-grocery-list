@@ -28,11 +28,11 @@ Il a aussi pour vocation d'être accessible à d'autres personnes qui veulent d�
 
 ## Stack technique (pré-requis)
 
-Pour pouvoir installer l'API vous devez au préalable avec cette stack installée en global sur votre machine :
+Pour pouvoir installer l'API vous devez au préalable avoir cette stack installée en global sur votre machine :
 
-- [NodeJS](https://nodejs.org/en/download/) (v16 ou supérieure)
+- [NodeJS](https://nodejs.org/en/download/) (voir la version exacte dans [`.nvmrc`](.nvmrc), actuellement Node 22)
 - [PostgreSQL](https://www.postgresql.org/download/) (v12 ou supérieure)
-- [Sqitch](https://sqitch.org/download/) (v1 ou supérieure)
+- [Sqitch](https://sqitch.org/download/) (v1 ou supérieure) — optionnel, voir plus bas
 - [Git](https://git-scm.com/downloads)
 
 ## Installation
@@ -55,22 +55,58 @@ Dans le dossier local, installez les dépendances NPM
 npm install
 ```
 
-Enfin, créez une base de données PostgreSQL, votre fichier `.env` et `sqitch.conf` (des fichiers d'exemple sont fournis à la racine du projet) et déployez le projet sqitch.
+### Variables d'environnement
+
+Le chargement des variables d'environnement se fait avec [dotenvx](https://dotenvx.com/), un fichier différent par environnement :
+
+- `.env.development` pour `npm run dev` et `npm test`
+- `.env.production` pour `npm run start`
+
+Chaque fichier suit le format de [`.env.example`](.env.example) (`DATABASE_URL`, `DATABASE_TEST_URL`, `PORT`, `BASE_URL`). `DATABASE_TEST_URL` doit pointer vers une base de test dédiée (les tests suppriment/recréent des données dedans, ne la faites jamais pointer sur votre base de dev ou de prod).
+
+```bash
+cp .env.example .env.development
+cp .env.example .env.production
+# puis éditez les valeurs (identifiants de connexion, ports, etc.)
+```
+
+### Base de données
+
+Créez une base PostgreSQL pour le développement et une pour les tests, puis appliquez les migrations.
+
+Avec Sqitch :
 
 ```bash
 createdb <nom de votre database>
 sqitch deploy
 ```
 
-💡 Configurez PostgreSQL (ou fournir les variables d'environnement nécessaires à la connexion) pour que les commandes `creatdb` et `sqitch` puissent s'éxécuter correctement.
-
-Lancez le serveur avec la commande
+Sans Sqitch, vous pouvez appliquer directement les fichiers SQL dans l'ordre du plan (voir [`migrations/sqitch.plan`](migrations/sqitch.plan)) :
 
 ```bash
-npm run start
+psql <votre_database_url> -f migrations/deploy/init.sql
+psql <votre_database_url> -f migrations/deploy/genericUpdatingFunction.sql
+psql <votre_database_url> -f migrations/deploy/view.sql
+```
+
+💡 À répéter pour la base de dev (`DATABASE_URL`) et la base de test (`DATABASE_TEST_URL`).
+
+### Lancer le serveur
+
+```bash
+npm run start   # avec .env.production
+npm run dev     # avec .env.development, rechargement automatique à chaque changement de fichier
 ```
 
 Vous pouvez accéder aux données avec le fichier `api.http` qui se trouve à la racine du projet.
+
+### Lancer les tests
+
+```bash
+npm test
+```
+
+Utilise `DATABASE_TEST_URL` défini dans `.env.development`.
 </details>
 
 
