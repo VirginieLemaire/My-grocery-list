@@ -46,7 +46,7 @@ module.exports = {
         
         //If no model for this string -> stop
         if (!model) {
-            response.status(404).send('Not Found');
+            response.status(404).json({error: 'Endpoint non trouvé'});
             return;
         }
         //else put model in request.model

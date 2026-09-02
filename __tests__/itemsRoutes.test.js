@@ -101,6 +101,19 @@ describe('POST /api/items', () => {
     });
 });
 
+describe('POST /api/items with an empty body', () => {
+    it('should return a 400 JSON error', async() => {
+        return await request(app)
+            .post('/api/items')
+            .send({})
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .then(response => {
+                expect(response.body).toEqual({error: expect.any(String)});
+            });
+    });
+});
+
 describe('PATCH /api/items/1', () => {
     it('should return the item updated', async() => {
         return (
