@@ -32,7 +32,6 @@ Pour pouvoir installer l'API vous devez au préalable avoir cette stack install�
 
 - [NodeJS](https://nodejs.org/en/download/) (voir la version exacte dans [`.nvmrc`](.nvmrc), actuellement Node 22)
 - [PostgreSQL](https://www.postgresql.org/download/) (v12 ou supérieure)
-- [Sqitch](https://sqitch.org/download/) (v1 ou supérieure) — optionnel, voir plus bas
 - [Git](https://git-scm.com/downloads)
 
 ## Installation
@@ -72,24 +71,15 @@ cp .env.example .env.production
 
 ### Base de données
 
-Créez une base PostgreSQL pour le développement et une pour les tests, puis appliquez les migrations.
-
-Avec Sqitch :
+Créez une base PostgreSQL pour le développement et une pour les tests, puis appliquez les migrations avec le script npm dédié (il rejoue dans l'ordre les fichiers SQL de [`migrations/deploy`](migrations/deploy)) :
 
 ```bash
-createdb <nom de votre database>
-sqitch deploy
+createdb <nom de votre base de dev>
+createdb <nom de votre base de test>
+npm run migrate        # applique les migrations sur DATABASE_URL (.env.development)
+npm run migrate:test   # applique les migrations sur DATABASE_TEST_URL (.env.development)
+npm run migrate:prod   # applique les migrations sur DATABASE_URL (.env.production)
 ```
-
-Sans Sqitch, vous pouvez appliquer directement les fichiers SQL dans l'ordre du plan (voir [`migrations/sqitch.plan`](migrations/sqitch.plan)) :
-
-```bash
-psql <votre_database_url> -f migrations/deploy/init.sql
-psql <votre_database_url> -f migrations/deploy/genericUpdatingFunction.sql
-psql <votre_database_url> -f migrations/deploy/view.sql
-```
-
-💡 À répéter pour la base de dev (`DATABASE_URL`) et la base de test (`DATABASE_TEST_URL`).
 
 ### Lancer le serveur
 

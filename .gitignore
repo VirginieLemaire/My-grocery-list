@@ -3,9 +3,6 @@
 .env.development
 .env.production
 
-# sqitch element
-sqitch.conf
-
 # Dependency directories
 node_modules/
 
