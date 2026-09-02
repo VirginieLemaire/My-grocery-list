@@ -72,10 +72,8 @@ describe('PATCH /api/categories/1', () => {
             .then(response => {
                 expect(response.body).toEqual(
                     expect.objectContaining({
-                        update_table_dynamic: expect.objectContaining({
-                            id: expect.any(Number),
-                            name: expect.any(String),
-                        }),
+                        id: expect.any(Number),
+                        name: expect.any(String),
                     }),
                 );
             })

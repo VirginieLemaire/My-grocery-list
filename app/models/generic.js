@@ -90,18 +90,15 @@ class Generic {
 
             const {rows} = await pool.query(`SELECT update_table_dynamic($1,$2)`, [this.modelTableName, changingDatas]);
 
-            if (rows[0]) {
-                console.log(rows[0]);
-                return rows[0];
-            } else {
-                throw new Error(`Can't update table ${this.modelTableName}`);
-            }
-            
+            // SELECT update_table_dynamic(...) always returns exactly one row,
+            // wrapped under the function's own name; its value is null when no
+            // row matched the given id
+            return rows[0].update_table_dynamic;
         } catch(error) {
             console.log(error);
             throw new Error(error.detail ? error.detail : error.message, { cause: error });
-        }  
-    }  
+        }
+    }
 }
 
 module.exports = Generic;
