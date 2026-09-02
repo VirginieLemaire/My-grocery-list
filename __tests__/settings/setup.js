@@ -1,15 +1,11 @@
 const pool = require('../../app/database');
 const { clearDatas, seedDatas } = require('../../data/services/seedAndClear');
 
-beforeAll((done) => {
-    // console.log("beforeAll");
-    seedDatas();
-    done();
+beforeAll(async () => {
+    await seedDatas();
 });
 
-afterAll((done) => {
-    // console.log("afterAll");
-    // clearDatas();
-    pool.end();
-    done();
+afterAll(async () => {
+    // await clearDatas();
+    await pool.end();
 });

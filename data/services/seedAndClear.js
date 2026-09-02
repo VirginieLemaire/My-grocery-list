@@ -1,25 +1,17 @@
 require('@dotenvx/dotenvx').config({logLevel: 'error', ignore: ['MISSING_ENV_FILE']});
 const { exec } = require('node:child_process');
+const { promisify } = require('node:util');
 
-exports.clearDatas = () => {
-    // connect to DB and execute script to clear datas from all tables
-    exec(`psql ${process.env.DATABASE_TEST_URL} -f ./data/clear_datas.sql`, (error, output) => {
-        if (error) {
-            console.error("could not execute command: ", error)
-            return
-        }
-        // console.log("Output: \n", output);
-    });
-};
+const execAsync = promisify(exec);
 
-exports.seedDatas = () => {
-    // connect to DB and and execute script to seed datas
-    exec(`psql ${process.env.DATABASE_TEST_URL} -f ./data/seed_dispo.sql`, (error, output) => {
-        if (error) {
-            console.error("could not execute command: ", error)
-            return
-        }
-        // console.log("Output: \n", output);
-    });
-    
-};
+/**
+ * connect to DB and execute script to clear datas from all tables
+ * @returns {Promise<void>}
+ */
+exports.clearDatas = () => execAsync(`psql ${process.env.DATABASE_TEST_URL} -f ./data/clear_datas.sql`);
+
+/**
+ * connect to DB and execute script to seed datas
+ * @returns {Promise<void>}
+ */
+exports.seedDatas = () => execAsync(`psql ${process.env.DATABASE_TEST_URL} -f ./data/seed_dispo.sql`);
