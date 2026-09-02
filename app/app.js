@@ -9,9 +9,13 @@ const { swaggerSpecifications, cssOptions } = require('../doc/API-documentation/
 // USE
 const app = express();
 
-// Mise en place des cors pour preprod
+// Mise en place des cors, origine autorisée définie par environnement.
+// Le paquet cors traite `origin: undefined` (ou `false`) comme "autoriser
+// toutes les origines" : on passe donc un tableau vide par défaut, qui lui
+// bloque tout, plutôt que de risquer d'ouvrir le CORS en grand si
+// CORS_ORIGIN n'est pas défini.
 const corsOptions = {
-  origin : "http://192.168.1.138"
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN : []
 };
 app.use(cors(corsOptions));
 

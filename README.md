@@ -61,7 +61,7 @@ Le chargement des variables d'environnement se fait avec [dotenvx](https://doten
 - `.env.development` pour `npm run dev` et `npm test`
 - `.env.production` pour `npm run start`
 
-Chaque fichier suit le format de [`.env.example`](.env.example) (`DATABASE_URL`, `DATABASE_TEST_URL`, `PORT`, `BASE_URL`). `DATABASE_TEST_URL` doit pointer vers une base de test dédiée (les tests suppriment/recréent des données dedans, ne la faites jamais pointer sur votre base de dev ou de prod).
+Chaque fichier suit le format de [`.env.example`](.env.example) (`DATABASE_URL`, `DATABASE_TEST_URL`, `PORT`, `BASE_URL`, `CORS_ORIGIN`). `DATABASE_TEST_URL` doit pointer vers une base de test dédiée (les tests suppriment/recréent des données dedans, ne la faites jamais pointer sur votre base de dev ou de prod). `CORS_ORIGIN` doit être l'origine exacte de votre frontend (ex: `http://localhost:3000`) ; sans cette variable, l'API refuse toutes les requêtes cross-origin par défaut (choix volontaire pour éviter d'ouvrir le CORS en grand par erreur).
 
 ```bash
 cp .env.example .env.development
