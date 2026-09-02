@@ -50,14 +50,7 @@ module.exports = {
             }
         },
         "default": {
-            "description": "unexpected error",
-            "content": {
-                "application/json": {
-                "schema": {
-                    "$ref": "#/components/schemas/Error"
-                }
-                }
-            }
+            "$ref": "#/components/responses/UnexpectedError"
         }
         },
     },

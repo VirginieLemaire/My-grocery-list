@@ -30,14 +30,7 @@ module.exports = {
             }
         },
         "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "$ref": "#/components/responses/UnexpectedError"
         }
         },
     },
@@ -81,34 +74,13 @@ module.exports = {
             }
         },
         "400": {
-            "description": "Empty body: nothing to update",
-            "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-            }
+            "$ref": "#/components/responses/BadRequest"
         },
         "404": {
-            "description": "No item found for this id",
-            "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-            }
+            "$ref": "#/components/responses/NotFound"
         },
         "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "$ref": "#/components/responses/UnexpectedError"
         }
         },
     },

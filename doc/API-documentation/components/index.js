@@ -62,4 +62,36 @@ module.exports = {
       postBrand,
       patchBrand
     },
+    "responses": {
+      "BadRequest": {
+        "description": "Empty body: nothing to save",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "No resource found for this id",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "UnexpectedError": {
+        "description": "unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
 }

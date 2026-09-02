@@ -18,14 +18,7 @@ module.exports = {
             }
         },
         "default": {
-            "description": "unexpected error",
-            "content": {
-                "application/json": {
-                    "schema": {
-                        "$ref": "#/components/schemas/Error"
-                    }
-                }
-            }
+            "$ref": "#/components/responses/UnexpectedError"
         }
         },
     },
@@ -57,24 +50,10 @@ module.exports = {
             }
         },
         "400": {
-            "description": "Empty body: nothing to save",
-            "content": {
-                "application/json": {
-                "schema": {
-                    "$ref": "#/components/schemas/Error"
-                }
-                }
-            }
+            "$ref": "#/components/responses/BadRequest"
         },
         "default": {
-            "description": "unexpected error",
-            "content": {
-                "application/json": {
-                "schema": {
-                    "$ref": "#/components/schemas/Error"
-                }
-                }
-            }
+            "$ref": "#/components/responses/UnexpectedError"
         }
         },
     },
