@@ -28,7 +28,7 @@
     "pg": "^8.7.1",
     "supertest": "^7.2.2",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.2"
+    "swagger-ui-express": "^5.0.1"
   },
   "jest": {
     "testEnvironment": "node",
