@@ -41,4 +41,79 @@ module.exports = {
         }
         },
     },
+    "patch": {
+        "tags": [
+        "Item"
+        ],
+        "summary": "Update an item",
+        "description": "Update one or several fields of an existing item. Only the fields present in the body are changed.",
+        "operationId": "updateItem",
+        "parameters": [
+          {
+              "name": "itemId",
+              "in": "path",
+              "description": "The id of the item to update",
+              "required": true,
+              "schema": {
+                  "type": "integer",
+                  "example": 1
+              }
+          }
+        ],
+        "requestBody": {
+        "content": {
+            "application/json": {
+            "schema": {
+                "$ref": "#/components/requestBodies/patchItem"
+            }
+            }
+        }
+        },
+        "responses": {
+        "200": {
+            "description": "Updated. Sends the updated fields, wrapped under \"update_table_dynamic\" (as returned by the underlying SQL function).",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "update_table_dynamic": {
+                        "$ref": "#/components/schemas/Item"
+                      }
+                    }
+                  }
+                }
+            }
+        },
+        "400": {
+            "description": "Empty body: nothing to update",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "example": "Il n'y a pas de données à enregistrer"
+                      }
+                    }
+                  }
+                }
+            }
+        },
+        "404": {
+            "description": "No item found for this id"
+        },
+        "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+        }
+        },
+    },
 };

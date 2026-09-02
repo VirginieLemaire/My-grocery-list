@@ -30,4 +30,34 @@ const postItem =  {
     }
 };
 
-module.exports = {postItem};
+// no "required" field: a PATCH only needs the fields being changed
+const patchItem =  {
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "example": "Poire",
+        },
+        "details": {
+            "type": "string",
+            "example": "Bio",
+        },
+        "brand_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+        },
+        "category_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+        },
+        "shelf_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+        },
+    }
+};
+
+module.exports = {postItem, patchItem};
