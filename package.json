@@ -12,7 +12,8 @@
     "dev": "./node_modules/.bin/dotenvx run --env-file=.env.development -- node --watch index.js",
     "migrate": "./node_modules/.bin/dotenvx run --env-file=.env.development -- node scripts/migrate.js",
     "migrate:test": "./node_modules/.bin/dotenvx run --env-file=.env.development -e NODE_ENV=test -- node scripts/migrate.js",
-    "migrate:prod": "./node_modules/.bin/dotenvx run --env-file=.env.production -- node scripts/migrate.js"
+    "migrate:prod": "./node_modules/.bin/dotenvx run --env-file=.env.production -- node scripts/migrate.js",
+    "lint": "eslint ."
   },
   "author": "Virginie Lemaire",
   "license": "ISC",
@@ -22,7 +23,6 @@
   "dependencies": {
     "@dotenvx/dotenvx": "^1.57.1",
     "cors": "^2.8.5",
-    "eslint": "^8.47.0",
     "express": "^5.2.1",
     "jest": "^29.6.2",
     "joi": "^17.13.4",
@@ -40,5 +40,10 @@
     "setupFilesAfterEnv": [
       "./__tests__/settings/setup.js"
     ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.1",
+    "globals": "^17.12.0"
   }
 }

@@ -1,5 +1,5 @@
 const pool = require('../../app/database');
-const { clearDatas, seedDatas } = require('../../data/services/seedAndClear');
+const { seedDatas } = require('../../data/services/seedAndClear');
 
 beforeAll(async () => {
     await seedDatas();

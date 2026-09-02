@@ -29,7 +29,7 @@ class Generic {
             return rows.map(row => new datas.model(row));
         } catch (error) {
             console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
+            throw new Error(error.detail ? error.detail : error.message, { cause: error });
         }
     }
 
@@ -53,7 +53,7 @@ class Generic {
 
         } catch(error) {
             console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
+            throw new Error(error.detail ? error.detail : error.message, { cause: error });
         }
     }
 
@@ -77,7 +77,7 @@ class Generic {
             }
         } catch(error) {
             console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
+            throw new Error(error.detail ? error.detail : error.message, { cause: error });
         }
     } 
 
@@ -99,7 +99,7 @@ class Generic {
             
         } catch(error) {
             console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
+            throw new Error(error.detail ? error.detail : error.message, { cause: error });
         }  
     }  
 }

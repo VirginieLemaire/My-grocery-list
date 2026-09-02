@@ -51,7 +51,7 @@ class Item extends Generic {
             return rows.map(row => new Item(row));
         } catch (error) {
             console.log(error);
-            throw new Error(error.detail ? error.detail : error.message);
+            throw new Error(error.detail ? error.detail : error.message, { cause: error });
         }
     }
 
