@@ -41,8 +41,7 @@ module.exports = {
         };
         // check if body is empty
         if (Object.keys(request.body).length === 0) {
-            response.set('Content-Type', 'application/json');
-            response.status(400).json({message: "Il n'y a pas de données à enregistrer"});
+            response.status(400).json({error: "Il n'y a pas de données à enregistrer"});
             return;
         }
         // check if request is about updating or creating

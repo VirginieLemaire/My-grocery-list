@@ -1,7 +1,7 @@
 const Item = require('../models/item');
 
 const itemController = {
-    async findByFilter(request, response, next) {
+    async findByFilter(request, response) {
         //create an object for the query string
         const queryString = {};
         //set properties if exists
@@ -9,15 +9,10 @@ const itemController = {
         if (request.query.category) queryString.category = request.query.category;
         if (request.query.shelf) queryString.shelf = request.query.shelf;
         if (request.query.name) queryString.name = request.query.name;
-        // console.log({queryString});
-        // console.log("zou on envoie au modèle")
-        const data = await Item.findByFilter(queryString);
 
-        if (!data) {
-            // go to new middleware and stop function
-            next();
-            return;
-        }
+        // Item.findByFilter always resolves to an array (possibly empty) :
+        // no filter match is a valid 200 with [], not a 404.
+        const data = await Item.findByFilter(queryString);
         response.json(data);
     },
 };
