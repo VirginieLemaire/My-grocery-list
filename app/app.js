@@ -29,4 +29,17 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecifications, css
 // ROUTER
 app.use('/api', router);
 
+// Gestionnaire d'erreurs centralisé.
+// Express 5 attrape déjà tout seul les rejets de promesse des routes async
+// et les transmet ici via next(error) : plus besoin de try/catch dans
+// chaque contrôleur. On garde quand même ce middleware "par-dessus" la
+// gestion native, parce que le handler par défaut d'Express renvoie du
+// HTML (alors que cette API répond en JSON partout ailleurs) et peut
+// fuiter la stack trace au client si NODE_ENV n'est pas explicitement
+// "production" (ce que ce projet ne garantit pas).
+app.use((error, request, response, _next) => {
+  console.trace(error);
+  response.status(500).json({ error: error.errors || error.message });
+});
+
 module.exports = app;

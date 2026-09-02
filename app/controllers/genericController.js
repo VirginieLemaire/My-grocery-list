@@ -2,7 +2,8 @@
 /**
  * Refacto of controllers' methods
  * model's name is stored in request.model by middleware 'getModelName'
- * try, catch are handled by utils/catching wich is used in the router
+ * errors thrown here are caught by Express 5's built-in async handling
+ * and formatted by the centralized error middleware in app/app.js
  */
 module.exports = {
     // READ
