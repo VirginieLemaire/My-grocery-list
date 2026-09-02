@@ -85,19 +85,20 @@ module.exports = {
             "content": {
                 "application/json": {
                   "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string",
-                        "example": "Il n'y a pas de données à enregistrer"
-                      }
-                    }
+                    "$ref": "#/components/schemas/Error"
                   }
                 }
             }
         },
         "404": {
-            "description": "No brand found for this id"
+            "description": "No brand found for this id",
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+            }
         },
         "default": {
             "description": "unexpected error",
