@@ -13,6 +13,9 @@
   },
   "author": "Virginie Lemaire",
   "license": "ISC",
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.57.1",
     "cors": "^2.8.5",
