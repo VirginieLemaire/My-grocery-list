@@ -2,9 +2,8 @@
 const genericController = require('./controllers/genericController');
 const itemController = require('./controllers/itemController');
 
-//import middlewares and utils
+//import middlewares
 const {addModelInRequest} = require('./middlewares/getModelName');
-const {catching} = require('./utils/catching');
 
 
 const { Router }  = require('express');
@@ -17,30 +16,30 @@ const router = Router();
  * @param {number} id id of the filter we want to find items corresponding
  */
 router.route('/items/filter')
-  .get(catching(itemController.findByFilter));
+  .get(itemController.findByFilter);
 
 //Dynamic routes with model name taken in params and given to controller with addModelInRequest middleware
-/** 
+/**
  * @param {string} modelName name of the model we want to get (taken in params and given to controller)
 */
 router.route('/:modelName')
   .all(addModelInRequest)
-  .get(catching(genericController.findAll)) //find all the elements correponding to the model name
-  .post(catching(genericController.save)); //save an element in the model table
+  .get(genericController.findAll) //find all the elements correponding to the model name
+  .post(genericController.save); //save an element in the model table
 
   /**
  * @param {number} id the id of the element to get
  */
 router.route('/:modelName/:id')
   .all(addModelInRequest)
-  .get(catching(genericController.findOne))//find one element corresponding to the id
-  .patch(catching(genericController.save)); //update one element corresponding to the id
+  .get(genericController.findOne)//find one element corresponding to the id
+  .patch(genericController.save); //update one element corresponding to the id
 
 
 /**
  * In case no one answers
- * 
+ *
  */
 router.use((_, response) => response.status(404).json({error: 'Endpoint non trouvé'}));
- 
+
 module.exports = router;
