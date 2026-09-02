@@ -16,7 +16,7 @@ const router = Router();
  * @param {string} filter name of the filter we are applying (eg.: brand)
  * @param {number} id id of the filter we want to find items corresponding
  */
-router.route('/items/filter?')
+router.route('/items/filter')
   .get(catching(itemController.findByFilter));
 
 //Dynamic routes with model name taken in params and given to controller with addModelInRequest middleware
