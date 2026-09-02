@@ -11,4 +11,15 @@ const postShelf =  {
     }
 };
 
-module.exports = {postShelf};
+// no "required" field: a PATCH only needs the fields being changed
+const patchShelf =  {
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "example": "Saisonnier",
+        }
+    }
+};
+
+module.exports = {postShelf, patchShelf};
