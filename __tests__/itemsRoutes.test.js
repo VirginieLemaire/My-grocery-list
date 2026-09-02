@@ -114,13 +114,22 @@ describe('PATCH /api/items/1', () => {
             .then(response => {
                 expect(response.body).toEqual(
                     expect.objectContaining({
-                        update_table_dynamic: expect.objectContaining({
-                            id: expect.any(Number),
-                            name: expect.any(String),
-                        }),
+                        id: expect.any(Number),
+                        name: expect.any(String),
                     }),
                 );
             })
         );
+    });
+});
+
+describe('PATCH /api/items/999999 (id inexistant)', () => {
+    it('should return a 404', async() => {
+        return await request(app)
+            .patch('/api/items/999999')
+            .send({
+                name: 'modified test'
+            })
+            .expect(404);
     });
 });

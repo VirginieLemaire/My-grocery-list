@@ -71,16 +71,11 @@ module.exports = {
         },
         "responses": {
         "200": {
-            "description": "Updated. Sends the updated fields, wrapped under \"update_table_dynamic\" (as returned by the underlying SQL function).",
+            "description": "Updated. Sends the updated brand.",
             "content": {
                 "application/json": {
                   "schema": {
-                    "type": "object",
-                    "properties": {
-                      "update_table_dynamic": {
-                        "$ref": "#/components/schemas/Brand"
-                      }
-                    }
+                    "$ref": "#/components/schemas/Brand"
                   }
                 }
             }
