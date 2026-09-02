@@ -41,6 +41,25 @@ describe('GET /api/items/filter?shelf=frais', () => {
     });
 });
 
+describe('GET /api/items/filter (no query params)', () => {
+    it('should return all items instead of erroring out', async() => {
+        return await request(app)
+            .get('/api/items/filter')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then(response => {
+                expect(response.body).toEqual(
+                    expect.arrayContaining([
+                        expect.objectContaining({
+                            id: expect.any(Number),
+                            name: expect.any(String),
+                        }),
+                    ]),
+                );
+            });
+    });
+});
+
 describe('GET /api/items/1', () => {
     it('should return the item requested', async() => {
         return await request(app)

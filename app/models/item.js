@@ -31,23 +31,14 @@ class Item extends Generic {
     static async findByFilter(queryString) {
         try {
             //Construct prepared instruction depending on what is in queryString
-            const partOfQUery = ['WHERE '];
-            const bind = []; //prepare bind needed for prepared instruction
-            let count = 1;
-            for (const key in queryString) {
-                partOfQUery.push(`${key} ILIKE '%' || $${count++}  || '%' `);
-                bind.push(`${queryString[key]}`)
-            }
-            //add 'AND' to the query if needed
-            for (let i = 1; i < partOfQUery.length; i++) {
-                if (i%2 === 0) partOfQUery.splice(i,0,'AND ');
-            }
-            //transform in a string and delete "," added by .join()
-            const query = `${partOfQUery.join().replace(/,/g,"")}`;
-            // console.log(query);
+            const keys = Object.keys(queryString);
+            const bind = keys.map(key => `${queryString[key]}`); //prepare bind needed for prepared instruction
+            const whereClause = keys.length
+                ? `WHERE ${keys.map((key, index) => `${key} ILIKE '%' || $${index + 1} || '%'`).join(' AND ')}`
+                : '';
 
             //send request
-            const {rows} = await pool.query(`SELECT * FROM item_with_everything ${query}`, [...bind]);
+            const {rows} = await pool.query(`SELECT * FROM item_with_everything ${whereClause}`, bind);
             return rows.map(row => new Item(row));
         } catch (error) {
             console.log(error);
