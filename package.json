@@ -7,11 +7,11 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "./node_modules/.bin/dotenvx run --env-file=.env.development -e NODE_ENV=test -- jest",
+    "test": "./node_modules/.bin/dotenvx run --overload --env-file=.env.development -e NODE_ENV=test -- jest --runInBand",
     "start": "./node_modules/.bin/dotenvx run --env-file=.env.production -- node index.js",
     "dev": "./node_modules/.bin/dotenvx run --env-file=.env.development -- node --watch index.js",
     "migrate": "./node_modules/.bin/dotenvx run --env-file=.env.development -- node scripts/migrate.js",
-    "migrate:test": "./node_modules/.bin/dotenvx run --env-file=.env.development -e NODE_ENV=test -- node scripts/migrate.js",
+    "migrate:test": "./node_modules/.bin/dotenvx run --overload --env-file=.env.development -e NODE_ENV=test -- node scripts/migrate.js",
     "migrate:prod": "./node_modules/.bin/dotenvx run --env-file=.env.production -- node scripts/migrate.js",
     "lint": "eslint ."
   },
