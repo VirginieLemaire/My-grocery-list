@@ -104,7 +104,7 @@ class Generic {
 	async update() {
 		try {
 			const changingDatas = {
-				id: parseInt(this.id),
+				id: parseInt(this.id, 10),
 				...this.body,
 			};
 

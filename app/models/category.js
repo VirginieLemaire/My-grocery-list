@@ -10,13 +10,6 @@ const Generic = require("./generic");
  * @class Category
  */
 class Category extends Generic {
-	/**
-	 * Constructor, has parent properties
-	 * @param {*} obj a literal object with properties copied into the instance
-	 */
-	constructor(obj) {
-		super(obj);
-	}
 }
 
 module.exports = Category;

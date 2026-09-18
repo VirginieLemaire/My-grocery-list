@@ -46,7 +46,7 @@ app.use("/api", router);
 // HTML (alors que cette API répond en JSON partout ailleurs) et peut
 // fuiter la stack trace au client si NODE_ENV n'est pas explicitement
 // "production" (ce que ce projet ne garantit pas).
-app.use((error, request, response, _next) => {
+app.use((error, _, response, _next) => {
 	console.trace(error);
 	response.status(500).json({ error: error.errors || error.message });
 });

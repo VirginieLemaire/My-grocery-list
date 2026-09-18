@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg width="255" height="235" viewBox="0 0 255 235" xmlns="http://www.w3.org/2000/svg">
+<svg width="255" height="235" viewBox="0 0 255 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mcd-title">
+<title id="mcd-title">Modèle Conceptuel de Données : entités BRAND, CATEGORY, ITEM et SHELF, reliées par les associations sort, make et store</title>
 <rect id="frame" x="0" y="0" width="255" height="235" fill="none" stroke="none" stroke-width="0"/>
 
 <!-- Association sort -->

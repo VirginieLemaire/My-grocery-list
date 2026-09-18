@@ -16,14 +16,6 @@ const Generic = require("./generic");
  */
 class Item extends Generic {
 	/**
-	 * Constructor, has parent properties
-	 * @param {*} obj a literal object with properties copied into the instance
-	 */
-	constructor(obj) {
-		super(obj);
-	}
-
-	/**
 	 * Fetches the items applying filter(s) (eg. for one category)
 	 * @param {object} queryString correspond to the filter(s) applied
 	 * @returns {Array<Items>} an array of items corresponding to the filter (maybe empty)
