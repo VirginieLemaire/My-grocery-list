@@ -48,7 +48,9 @@ app.use("/api", router);
 // "production" (ce que ce projet ne garantit pas).
 app.use((error, _, response, _next) => {
 	console.trace(error);
-	response.status(500).json({ error: error.errors || error.message });
+	response
+		.status(error.status || 500)
+		.json({ error: error.errors || error.message });
 });
 
 module.exports = app;

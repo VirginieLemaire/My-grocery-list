@@ -84,7 +84,8 @@ module.exports = {
 	delete: {
 		tags: ["Brand"],
 		summary: "Delete a brand",
-		description: "Delete an existing brand",
+		description:
+			"Delete an existing brand. Fails with a 409 if the brand is still referenced by an item.",
 		operationId: "deleteBrand",
 		parameters: [
 			{
@@ -111,6 +112,9 @@ module.exports = {
 			},
 			404: {
 				$ref: "#/components/responses/NotFound",
+			},
+			409: {
+				$ref: "#/components/responses/Conflict",
 			},
 			default: {
 				$ref: "#/components/responses/UnexpectedError",

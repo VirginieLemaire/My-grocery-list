@@ -81,6 +81,16 @@ module.exports = {
 				},
 			},
 		},
+		Conflict: {
+			description: "The resource is still referenced by another resource",
+			content: {
+				"application/json": {
+					schema: {
+						$ref: "#/components/schemas/Error",
+					},
+				},
+			},
+		},
 		UnexpectedError: {
 			description: "unexpected error",
 			content: {

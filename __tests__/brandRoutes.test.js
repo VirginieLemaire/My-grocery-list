@@ -96,9 +96,7 @@ describe("DELETE /api/brands/:id when the brand is still used by an item", () =>
 		expect(response.status).toBe(409);
 		expect(response.body).toEqual({ error: expect.any(String) });
 
-		const stillThereResponse = await request(app).get(
-			`/api/brands/${brandId}`,
-		);
+		const stillThereResponse = await request(app).get(`/api/brands/${brandId}`);
 		expect(stillThereResponse.status).toBe(200);
 	});
 });
@@ -118,9 +116,7 @@ describe("DELETE /api/brands/:id", () => {
 			}),
 		);
 
-		const deletedResponse = await request(app).get(
-			`/api/brands/${createdId}`,
-		);
+		const deletedResponse = await request(app).get(`/api/brands/${createdId}`);
 		expect(deletedResponse.status).toBe(404);
 	});
 });

@@ -126,9 +126,8 @@ class Generic {
 	}
 
 	async delete(idToDelete) {
+		const table = this.modelTableName;
 		try {
-			const table = this.modelTableName;
-
 			const id = parseInt(idToDelete, 10);
 
 			const { rows } = await pool.query(
@@ -139,6 +138,15 @@ class Generic {
 			return rows[0] ?? null;
 		} catch (error) {
 			console.log(error);
+			// 23503 = foreign_key_violation : la ligne est encore référencée
+			// (ex. une marque utilisée par un item) -> conflit, pas une erreur serveur
+			if (error.code === "23503") {
+				const conflictError = new Error(
+					`Suppression impossible : ${table} encore utilisé(e) par d'autres éléments`,
+				);
+				conflictError.status = 409;
+				throw conflictError;
+			}
 			throw new Error(error.detail ? error.detail : error.message, {
 				cause: error,
 			});
