@@ -1,148 +1,144 @@
-const request = require('supertest');
-const app = require('../app/app');
+const request = require("supertest");
+const app = require("../app/app");
 
+let createdId = 0;
 
-describe('GET /api/items', () => {
-    it('should return an array of items', async() => {
-        return await request(app)
-            .get('/api/items')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .then(response => {
-                expect(response.body).toEqual(
-                    expect.arrayContaining([
-                        expect.objectContaining({
-                            id: expect.any(Number),
-                            name: expect.any(String),
-                        }),
-                    ]),
-                );
-            });
-    });
+describe("POST /api/items", () => {
+	it("should return the item created", async () => {
+		// Arrange
+		const payload = { name: "test" };
+		// Act
+		const response = await request(app).post("/api/items").send(payload);
+		createdId = response.body.id;
+
+		// Assert
+		expect(response.status).toBe(201);
+		expect(response.body).toEqual(
+			expect.objectContaining({
+				id: expect.any(Number),
+				name: "test",
+			}),
+		);
+	});
 });
 
-describe('GET /api/items/filter?shelf=frais', () => {
-    it('should return an array of items for the shelf "frais"', async() => {
-        return await request(app)
-            .get('/api/items/filter?shelf=frais')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .then(response => {
-                expect(response.body).toEqual(
-                    expect.arrayContaining([
-                        expect.objectContaining({
-                            id: expect.any(Number),
-                            name: expect.any(String),
-                            shelf: expect.stringMatching('Frais')
-                        })
-                    ]),
-                );
-            });
-    });
+describe("GET /api/items", () => {
+	it("should return an array of items", async () => {
+		// Act
+		const response = await request(app).get("/api/items/");
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					id: createdId,
+					name: "test",
+				}),
+			]),
+		);
+	});
 });
 
-describe('GET /api/items/filter (no query params)', () => {
-    it('should return all items instead of erroring out', async() => {
-        return await request(app)
-            .get('/api/items/filter')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .then(response => {
-                expect(response.body).toEqual(
-                    expect.arrayContaining([
-                        expect.objectContaining({
-                            id: expect.any(Number),
-                            name: expect.any(String),
-                        }),
-                    ]),
-                );
-            });
-    });
+describe(`GET /api/items/:id`, () => {
+	it("should return the item requested", async () => {
+		// Act
+		const response = await request(app).get(`/api/items/${createdId}`);
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual(
+			expect.objectContaining({
+				id: createdId,
+				name: "test",
+			}),
+		);
+	});
 });
 
-describe('GET /api/items/1', () => {
-    it('should return the item requested', async() => {
-        return await request(app)
-            .get('/api/items/1')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .then(response => {
-                expect(response.body).toEqual(
-                    expect.objectContaining({
-                        id: expect.any(Number),
-                        name: expect.any(String),
-                    }),
-                );
-            });
-    });
+describe("PATCH /api/items/:id", () => {
+	it("should return the item updated", async () => {
+		// Act
+		const response = await request(app)
+			.patch(`/api/items/${createdId}`)
+			.send({ name: "modified test" });
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual(
+			expect.objectContaining({
+				id: createdId,
+				name: "modified test",
+			}),
+		);
+	});
 });
 
-describe('POST /api/items', () => {
-    it('should return the item created', async() => {
-        return (
-            await request(app)
-            .post('/api/items')
-            .send({
-                name: 'test',
-                details: 'test too',
-            })
-            .expect('Content-Type', /json/)
-            .expect(201)
-            .then(response => {
-                expect(response.body).toEqual(
-                    expect.objectContaining({
-                        id: expect.any(Number),
-                        name: expect.any(String),
-                        details: expect.any(String)
-                    }),
-                );
-            })
-        );
-    });
+describe("GET /api/items/filter?shelf=frais", () => {
+	it('should return an array of items for the shelf "frais"', async () => {
+		// Act
+		const response = await request(app).get("/api/items/filter?shelf=frais");
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					id: expect.any(Number),
+					name: expect.any(String),
+					shelf: expect.stringMatching("Frais"),
+				}),
+			]),
+		);
+	});
 });
 
-describe('POST /api/items with an empty body', () => {
-    it('should return a 400 JSON error', async() => {
-        return await request(app)
-            .post('/api/items')
-            .send({})
-            .expect('Content-Type', /json/)
-            .expect(400)
-            .then(response => {
-                expect(response.body).toEqual({error: expect.any(String)});
-            });
-    });
+describe("GET /api/items/filter (no query params)", () => {
+	it("should return all items instead of erroring out", async () => {
+		// Act
+		const response = await request(app).get("/api/items/filter");
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					id: expect.any(Number),
+					name: expect.any(String),
+				}),
+			]),
+		);
+	});
 });
 
-describe('PATCH /api/items/1', () => {
-    it('should return the item updated', async() => {
-        return (
-            await request(app)
-            .patch('/api/items/1')
-            .send({
-                name: 'modified test'
-            })
-            .expect(200)
-            .expect('Content-Type', /json/)
-            .then(response => {
-                expect(response.body).toEqual(
-                    expect.objectContaining({
-                        id: expect.any(Number),
-                        name: expect.any(String),
-                    }),
-                );
-            })
-        );
-    });
+describe("POST /api/items with an empty body", () => {
+	it("should return a 400 JSON error", async () => {
+		// Arrange
+		const payload = {};
+
+		//  Act
+		const response = await request(app).post("/api/items").send(payload);
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
 });
 
-describe('PATCH /api/items/999999 (id inexistant)', () => {
-    it('should return a 404', async() => {
-        return await request(app)
-            .patch('/api/items/999999')
-            .send({
-                name: 'modified test'
-            })
-            .expect(404);
-    });
+describe("PATCH /api/items/:idInexistant", () => {
+	it("should return a 404", async () => {
+		// Act
+		const response = await request(app)
+			.patch(`/api/items/${createdId + 999999}`)
+			.send({
+				name: "modified test",
+			});
+
+		// Assert
+		expect(response.status).toBe(404);
+	});
 });
