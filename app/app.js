@@ -1,10 +1,16 @@
 // REQUIRE
-require('@dotenvx/dotenvx').config({logLevel: 'error', ignore: ['MISSING_ENV_FILE']});
-const express = require('express');
-const router = require('./router');
-const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const { swaggerSpecifications, cssOptions } = require('../doc/API-documentation/swaggerDocs');
+require("@dotenvx/dotenvx").config({
+	logLevel: "error",
+	ignore: ["MISSING_ENV_FILE"],
+});
+const express = require("express");
+const router = require("./router");
+const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const {
+	swaggerSpecifications,
+	cssOptions,
+} = require("../doc/API-documentation/swaggerDocs");
 
 // USE
 const app = express();
@@ -15,7 +21,7 @@ const app = express();
 // bloque tout, plutôt que de risquer d'ouvrir le CORS en grand si
 // CORS_ORIGIN n'est pas défini.
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN : []
+	origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN : [],
 };
 app.use(cors(corsOptions));
 
@@ -23,11 +29,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // swagger documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecifications, cssOptions));
-
+app.use(
+	"/api-docs",
+	swaggerUi.serve,
+	swaggerUi.setup(swaggerSpecifications, cssOptions),
+);
 
 // ROUTER
-app.use('/api', router);
+app.use("/api", router);
 
 // Gestionnaire d'erreurs centralisé.
 // Express 5 attrape déjà tout seul les rejets de promesse des routes async
@@ -38,8 +47,8 @@ app.use('/api', router);
 // fuiter la stack trace au client si NODE_ENV n'est pas explicitement
 // "production" (ce que ce projet ne garantit pas).
 app.use((error, request, response, _next) => {
-  console.trace(error);
-  response.status(500).json({ error: error.errors || error.message });
+	console.trace(error);
+	response.status(500).json({ error: error.errors || error.message });
 });
 
 module.exports = app;

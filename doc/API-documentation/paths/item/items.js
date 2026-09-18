@@ -1,60 +1,59 @@
 module.exports = {
-    "get": {
-        "tags": [
-        "Item"
-        ],
-        "summary": "List of all items",
-        "description": "Give a list of all items known in the database, with informations like brand, category or shelf",
-        "operationId": "getItems",
-        "responses": {
-        "200": {
-            "description": "A page array of items",
-            "content": {
-            "application/json; charset=utf-8": {
-                "schema": {
-                "$ref": "#/components/schemas/Items"
-                }
-            }
-            }
-        },
-        "default": {
-            "$ref": "#/components/responses/UnexpectedError"
-        }
-        },
-    },
-    "post": {
-        "tags": [
-        "Item"
-        ],
-        "summary": "Create a new item",
-        "description": "Add a new item in the database, with informations like brand, category or shelf",
-        "operationId": "addItems",
-        "requestBody": {
-        "content": {
-            "application/json": {
-            "schema": {
-                "$ref": "#/components/requestBodies/postItem"
-            }
-            }
-        }
-        },
-        "responses": {
-            "201": {
-                "description": "Created. Send an object containing the informations about the new item",
-                "content": {
-                "application/json; charset=utf-8": {
-                    "schema": {
-                    "$ref": "#/components/schemas/Item"
-                    }
-                }
-                }
-            },
-            "400": {
-                "$ref": "#/components/responses/BadRequest"
-            },
-            "default": {
-                "$ref": "#/components/responses/UnexpectedError"
-            }
-        },
-    },
-}
+	get: {
+		tags: ["Item"],
+		summary: "List of all items",
+		description:
+			"Give a list of all items known in the database, with informations like brand, category or shelf",
+		operationId: "getItems",
+		responses: {
+			200: {
+				description: "A page array of items",
+				content: {
+					"application/json; charset=utf-8": {
+						schema: {
+							$ref: "#/components/schemas/Items",
+						},
+					},
+				},
+			},
+			default: {
+				$ref: "#/components/responses/UnexpectedError",
+			},
+		},
+	},
+	post: {
+		tags: ["Item"],
+		summary: "Create a new item",
+		description:
+			"Add a new item in the database, with informations like brand, category or shelf",
+		operationId: "addItems",
+		requestBody: {
+			content: {
+				"application/json": {
+					schema: {
+						$ref: "#/components/requestBodies/postItem",
+					},
+				},
+			},
+		},
+		responses: {
+			201: {
+				description:
+					"Created. Send an object containing the informations about the new item",
+				content: {
+					"application/json; charset=utf-8": {
+						schema: {
+							$ref: "#/components/schemas/Item",
+						},
+					},
+				},
+			},
+			400: {
+				$ref: "#/components/responses/BadRequest",
+			},
+			default: {
+				$ref: "#/components/responses/UnexpectedError",
+			},
+		},
+	},
+};
