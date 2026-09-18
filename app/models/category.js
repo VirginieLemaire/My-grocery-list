@@ -9,7 +9,6 @@ const Generic = require("./generic");
 /**
  * @class Category
  */
-class Category extends Generic {
-}
+class Category extends Generic {}
 
 module.exports = Category;

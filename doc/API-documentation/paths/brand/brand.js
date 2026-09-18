@@ -81,4 +81,40 @@ module.exports = {
 			},
 		},
 	},
+	delete: {
+		tags: ["Brand"],
+		summary: "Delete a brand",
+		description: "Delete an existing brand",
+		operationId: "deleteBrand",
+		parameters: [
+			{
+				name: "brandId",
+				in: "path",
+				description: "The id of the brand to delete",
+				required: true,
+				schema: {
+					type: "integer",
+					example: 1,
+				},
+			},
+		],
+		responses: {
+			200: {
+				description: "Deleted. Sends the deleted brand.",
+				content: {
+					"application/json": {
+						schema: {
+							$ref: "#/components/schemas/Brand",
+						},
+					},
+				},
+			},
+			404: {
+				$ref: "#/components/responses/NotFound",
+			},
+			default: {
+				$ref: "#/components/responses/UnexpectedError",
+			},
+		},
+	},
 };

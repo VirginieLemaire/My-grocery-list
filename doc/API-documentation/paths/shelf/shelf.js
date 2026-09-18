@@ -81,4 +81,40 @@ module.exports = {
 			},
 		},
 	},
+	delete: {
+		tags: ["Shelf"],
+		summary: "Delete a shelf",
+		description: "Delete an existing shelf",
+		operationId: "deleteShelf",
+		parameters: [
+			{
+				name: "shelfId",
+				in: "path",
+				description: "The id of the shelf to delete",
+				required: true,
+				schema: {
+					type: "integer",
+					example: 1,
+				},
+			},
+		],
+		responses: {
+			200: {
+				description: "Deleted. Sends the deleted shelf.",
+				content: {
+					"application/json": {
+						schema: {
+							$ref: "#/components/schemas/Shelf",
+						},
+					},
+				},
+			},
+			404: {
+				$ref: "#/components/responses/NotFound",
+			},
+			default: {
+				$ref: "#/components/responses/UnexpectedError",
+			},
+		},
+	},
 };

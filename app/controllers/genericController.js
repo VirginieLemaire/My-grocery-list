@@ -31,7 +31,7 @@ module.exports = {
 		response.set("Content-Type", "application/json");
 		response.json(data);
 	},
-	// CREATE
+	// CREATE OR PATCH
 	async save(request, response, next) {
 		const datas = {
 			modelTableName: request.modelTableName,
@@ -68,5 +68,29 @@ module.exports = {
 			response.set("Content-Type", "application/json");
 			response.status(201).json(data);
 		}
+	},
+	// DELETE
+	async delete(request, response, next) {
+		const datas = {
+			modelTableName: request.modelTableName,
+			model: request.model,
+		};
+
+		if (!request.params.id) {
+			next();
+			return;
+		}
+
+		datas.id = request.params.id;
+		const data = await new datas.model(datas).delete(datas.id);
+
+		if (!data) {
+			// go next middleware and stop function
+			next();
+			return;
+		}
+
+		response.set("Content-Type", "application/json");
+		response.json(data);
 	},
 };

@@ -81,4 +81,40 @@ module.exports = {
 			},
 		},
 	},
+	delete: {
+		tags: ["Category"],
+		summary: "Delete a category",
+		description: "Delete an existing category",
+		operationId: "deleteCategory",
+		parameters: [
+			{
+				name: "categoryId",
+				in: "path",
+				description: "The id of the category to delete",
+				required: true,
+				schema: {
+					type: "integer",
+					example: 1,
+				},
+			},
+		],
+		responses: {
+			200: {
+				description: "Deleted. Sends the deleted category.",
+				content: {
+					"application/json": {
+						schema: {
+							$ref: "#/components/schemas/Category",
+						},
+					},
+				},
+			},
+			404: {
+				$ref: "#/components/responses/NotFound",
+			},
+			default: {
+				$ref: "#/components/responses/UnexpectedError",
+			},
+		},
+	},
 };

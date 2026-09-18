@@ -81,4 +81,40 @@ module.exports = {
 			},
 		},
 	},
+	delete: {
+		tags: ["Item"],
+		summary: "Delete an item",
+		description: "Delete an existing item",
+		operationId: "deleteItem",
+		parameters: [
+			{
+				name: "itemId",
+				in: "path",
+				description: "The id of the item to delete",
+				required: true,
+				schema: {
+					type: "integer",
+					example: 1,
+				},
+			},
+		],
+		responses: {
+			200: {
+				description: "Deleted. Sends the deleted item.",
+				content: {
+					"application/json": {
+						schema: {
+							$ref: "#/components/schemas/Item",
+						},
+					},
+				},
+			},
+			404: {
+				$ref: "#/components/responses/NotFound",
+			},
+			default: {
+				$ref: "#/components/responses/UnexpectedError",
+			},
+		},
+	},
 };

@@ -9,7 +9,6 @@ const Generic = require("./generic");
 /**
  * @class Shelf
  */
-class Shelf extends Generic {
-}
+class Shelf extends Generic {}
 
 module.exports = Shelf;

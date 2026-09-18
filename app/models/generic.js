@@ -124,6 +124,26 @@ class Generic {
 			});
 		}
 	}
+
+	async delete(idToDelete) {
+		try {
+			const table = this.modelTableName;
+
+			const id = parseInt(idToDelete, 10);
+
+			const { rows } = await pool.query(
+				`DELETE FROM ${table} WHERE id=($1) RETURNING *`,
+				[id],
+			);
+
+			return rows[0] ?? null;
+		} catch (error) {
+			console.log(error);
+			throw new Error(error.detail ? error.detail : error.message, {
+				cause: error,
+			});
+		}
+	}
 }
 
 module.exports = Generic;

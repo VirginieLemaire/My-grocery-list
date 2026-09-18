@@ -33,7 +33,8 @@ router
 	.route("/:modelName/:id")
 	.all(addModelInRequest)
 	.get(genericController.findOne) //find one element corresponding to the id
-	.patch(genericController.save); //update one element corresponding to the id
+	.patch(genericController.save) //update one element corresponding to the id
+	.delete(genericController.delete); // delete one element corresponding to the id
 
 /**
  * In case no one answers
