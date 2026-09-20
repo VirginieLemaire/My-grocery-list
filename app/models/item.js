@@ -42,32 +42,6 @@ class Item extends Generic {
 			});
 		}
 	}
-
-	//TODO Ajouter un article dans la base de données
-
-	//  async save() {
-	//     try {
-	//         if (this.id) {
-	//             //TODO modifier un article dans la base de données
-	//             console.log('cet article existe déjà : le mettre à jour?');
-
-	//         } else {
-	//             const {rows} = await pool.query('INSERT INTO item (name, details, brand_id, category_id, shelf_id) VALUES($1, $2, $3, $4, $5) RETURNING id', [
-	//                 this.name,
-	//                 this.details,
-	//                 this.brand_id,
-	//                 this.category_id,
-	//                 this.shelf_id
-	//             ]);
-	//             this.id = rows[0].id;
-	//         }
-	//     } catch (error) {
-	//         console.log('Erreur SQL', error.detail);
-	//         //relancer l'erreur pout que le controller puisse l'attrapper et la renvoyer au front
-	//         throw new Error(error.detail ? error.detail : error.message);
-	//     }
-	// }
-	//TODO supprimer un article de la base de données
 }
 
 module.exports = Item;
