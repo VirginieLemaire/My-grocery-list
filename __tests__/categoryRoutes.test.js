@@ -76,3 +76,65 @@ describe("PATCH /api/categories/:id", () => {
 		);
 	});
 });
+
+describe("DELETE /api/categories/:id when the category is still used by an item", () => {
+	it("should return a 409 JSON error and not delete the category", async () => {
+		// Arrange
+		const categoryResponse = await request(app)
+			.post("/api/categories")
+			.send({ name: "category used by an item" });
+		const categoryId = categoryResponse.body.id;
+		await request(app)
+			.post("/api/items")
+			.send({ name: "item using the category", category_id: categoryId });
+
+		// Act
+		const response = await request(app).delete(`/api/categories/${categoryId}`);
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(409);
+		expect(response.body).toEqual({ error: expect.any(String) });
+
+		const stillThereResponse = await request(app).get(
+			`/api/categories/${categoryId}`,
+		);
+		expect(stillThereResponse.status).toBe(200);
+	});
+});
+
+describe("DELETE /api/categories/:id", () => {
+	it("should return an object confirming deletion for this id", async () => {
+		// Act
+		const response = await request(app).delete(`/api/categories/${createdId}`);
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual(
+			expect.objectContaining({
+				id: createdId,
+				name: "modified test",
+			}),
+		);
+
+		const deletedResponse = await request(app).get(
+			`/api/categories/${createdId}`,
+		);
+		expect(deletedResponse.status).toBe(404);
+	});
+});
+
+describe("DELETE /api/categories/:idInexistant", () => {
+	it("should return a 404 when the id doesn't exist with a JSON error", async () => {
+		// Act
+		const response = await request(app).delete(
+			`/api/categories/${createdId + 999999}`,
+		);
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(404);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
