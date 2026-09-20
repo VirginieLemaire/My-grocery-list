@@ -77,6 +77,51 @@ describe("PATCH /api/shelves/:id", () => {
 	});
 });
 
+describe("POST /api/shelves without a name", () => {
+	it("should return a 400 JSON error", async () => {
+		// Act
+		const response = await request(app).post("/api/shelves").send({});
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
+describe("POST /api/shelves with a name of the wrong type", () => {
+	it("should return a 400 JSON error", async () => {
+		// Act
+		const response = await request(app)
+			.post("/api/shelves")
+			.send({ name: 123 });
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
+describe("PATCH /api/shelves/:id with a name of the wrong type", () => {
+	it("should return a 400 JSON error", async () => {
+		// Arrange
+		const shelfResponse = await request(app)
+			.post("/api/shelves")
+			.send({ name: "shelf to patch invalidly" });
+
+		// Act
+		const response = await request(app)
+			.patch(`/api/shelves/${shelfResponse.body.id}`)
+			.send({ name: 123 });
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
 describe("DELETE /api/shelves/:id when the shelf is still used by an item", () => {
 	it("should return a 409 JSON error and not delete the shelf", async () => {
 		// Arrange
