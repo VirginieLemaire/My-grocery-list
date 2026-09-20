@@ -1,7 +1,7 @@
 const Generic = require("../app/models/generic");
 
 describe("Generic - validation du nom de la table", () => {
-	// Here we can't pass by HTTP request so we neeed to execute the promise first to catch the error
+	// Here we can't pass by HTTP request so we need to execute the promise first to catch the error
 	it("should reject an unknown table name with a 400 status", async () => {
 		// Act
 		let error;

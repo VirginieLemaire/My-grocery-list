@@ -15,11 +15,11 @@ const {
 // USE
 const app = express();
 
-// Mise en place des cors, origine autorisée définie par environnement.
-// Le paquet cors traite `origin: undefined` (ou `false`) comme "autoriser
-// toutes les origines" : on passe donc un tableau vide par défaut, qui lui
-// bloque tout, plutôt que de risquer d'ouvrir le CORS en grand si
-// CORS_ORIGIN n'est pas défini.
+// Sets up CORS, allowed origin defined by environment.
+// The cors package treats `origin: undefined` (or `false`) as "allow
+// all origins": we pass an empty array by default instead, which
+// blocks everything, rather than risking CORS wide open if
+// CORS_ORIGIN isn't set.
 const corsOptions = {
 	origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN : [],
 };
@@ -38,14 +38,14 @@ app.use(
 // ROUTER
 app.use("/api", router);
 
-// Gestionnaire d'erreurs centralisé.
-// Express 5 attrape déjà tout seul les rejets de promesse des routes async
-// et les transmet ici via next(error) : plus besoin de try/catch dans
-// chaque contrôleur. On garde quand même ce middleware "par-dessus" la
-// gestion native, parce que le handler par défaut d'Express renvoie du
-// HTML (alors que cette API répond en JSON partout ailleurs) et peut
-// fuiter la stack trace au client si NODE_ENV n'est pas explicitement
-// "production" (ce que ce projet ne garantit pas).
+// Centralized error handler.
+// Express 5 already catches rejected promises from async routes on its
+// own and forwards them here via next(error): no more try/catch needed
+// in every controller. We still keep this middleware "on top of" the
+// native handling, because Express's default handler returns HTML
+// (whereas this API answers in JSON everywhere else) and can leak the
+// stack trace to the client if NODE_ENV isn't explicitly set to
+// "production" (which this project doesn't guarantee).
 app.use((error, _, response, _next) => {
 	console.trace(error);
 	const jsonResponse = error.status

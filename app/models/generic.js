@@ -2,7 +2,7 @@ const pool = require("../database");
 
 const tableInterpolation = (modelTableName) => {
 	const models = require("./index");
-	// construct all table names list in minuscules
+	// build the list of all table names in lowercase
 	const tableList = Object.keys(models).map((name) => name.toLowerCase());
 
 	if (!tableList.includes(modelTableName)) {
@@ -119,7 +119,8 @@ class Generic {
 
 			if (error.status) throw error;
 
-			// 23505 = duplicate key value violates unique constraint : il y a déjà un élément avec la même clé -> conflit, pas une erreur serveur
+			// 23505 = duplicate key value violates unique constraint: an element
+			// with the same key already exists -> conflict, not a server error
 			if (error.code === "23505") {
 				const conflictError = new Error(
 					`Création impossible : ce nom existe déjà`,
@@ -156,7 +157,8 @@ class Generic {
 
 			if (error.status) throw error;
 
-			// 23505 = duplicate key value violates unique constraint : il y a déjà un élément avec la même clé -> conflit, pas une erreur serveur
+			// 23505 = duplicate key value violates unique constraint: an element
+			// with the same key already exists -> conflict, not a server error
 			if (error.code === "23505") {
 				const conflictError = new Error(
 					`Modification impossible : ce nom existe déjà`,
@@ -188,8 +190,8 @@ class Generic {
 
 			if (error.status) throw error;
 
-			// 23503 = foreign_key_violation : la ligne est encore référencée
-			// (ex. une marque utilisée par un item) -> conflit, pas une erreur serveur
+			// 23503 = foreign_key_violation: the row is still referenced
+			// (e.g. a brand used by an item) -> conflict, not a server error
 			if (error.code === "23503") {
 				const conflictError = new Error(
 					`Suppression impossible : ${table} encore utilisé(e) par d'autres éléments`,
