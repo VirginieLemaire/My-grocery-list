@@ -84,7 +84,8 @@ module.exports = {
 	delete: {
 		tags: ["Shelf"],
 		summary: "Delete a shelf",
-		description: "Delete an existing shelf",
+		description:
+			"Delete an existing shelf. Fails with a 409 if the shelf is still referenced by an item.",
 		operationId: "deleteShelf",
 		parameters: [
 			{
@@ -111,6 +112,9 @@ module.exports = {
 			},
 			404: {
 				$ref: "#/components/responses/NotFound",
+			},
+			409: {
+				$ref: "#/components/responses/Conflict",
 			},
 			default: {
 				$ref: "#/components/responses/UnexpectedError",
