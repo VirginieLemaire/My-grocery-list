@@ -12,8 +12,12 @@ module.exports = {
 	 */
 	validateBody(request, response, next) {
 		const entitySchemas = schemas[request.modelName];
+
 		if (!entitySchemas) {
-			next();
+			// avoid silent error
+			response.status(500).json({
+				error: "⚠️ Oh oh... Modèle sans schéma ici, à corriger ! ",
+			});
 			return;
 		}
 
