@@ -94,6 +94,14 @@ class Generic {
 			}
 		} catch (error) {
 			console.log(error);
+			// 23505 = duplicate key value violates unique constraint : il y a déjà un élément avec la même clé -> conflit, pas une erreur serveur
+			if (error.code === "23505") {
+				const conflictError = new Error(
+					`Création impossible : ce nom existe déjà`,
+				);
+				conflictError.status = 409;
+				throw conflictError;
+			}
 			throw new Error(error.detail ? error.detail : error.message, {
 				cause: error,
 			});
@@ -118,6 +126,14 @@ class Generic {
 			return rows[0].update_table_dynamic;
 		} catch (error) {
 			console.log(error);
+			// 23505 = duplicate key value violates unique constraint : il y a déjà un élément avec la même clé -> conflit, pas une erreur serveur
+			if (error.code === "23505") {
+				const conflictError = new Error(
+					`Modification impossible : ce nom existe déjà`,
+				);
+				conflictError.status = 409;
+				throw conflictError;
+			}
 			throw new Error(error.detail ? error.detail : error.message, {
 				cause: error,
 			});

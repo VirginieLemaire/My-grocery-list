@@ -48,9 +48,10 @@ app.use("/api", router);
 // "production" (ce que ce projet ne garantit pas).
 app.use((error, _, response, _next) => {
 	console.trace(error);
-	response
-		.status(error.status || 500)
-		.json({ error: error.errors || error.message });
+	const jsonResponse = error.status
+		? { error: error.errors || error.message }
+		: { error: "Erreur interne du serveur" };
+	response.status(error.status || 500).json(jsonResponse);
 });
 
 module.exports = app;
