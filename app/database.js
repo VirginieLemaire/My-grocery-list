@@ -22,4 +22,8 @@ if (process.env.DATABASE_SSL === "true") {
 
 const pool = new Pool(config);
 
+pool.on("error", (err) => {
+	console.error("Erreur rencontrée au niveau du pool pg :", err);
+});
+
 module.exports = pool;
