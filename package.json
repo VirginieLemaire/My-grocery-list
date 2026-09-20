@@ -25,6 +25,7 @@
 		"@dotenvx/dotenvx": "^1.57.1",
 		"cors": "^2.8.5",
 		"express": "^5.2.1",
+		"helmet": "^8.3.0",
 		"pg": "^8.7.1",
 		"swagger-jsdoc": "^6.2.8",
 		"swagger-ui-express": "^5.0.1",

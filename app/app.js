@@ -11,9 +11,12 @@ const {
 	swaggerSpecifications,
 	cssOptions,
 } = require("../doc/API-documentation/swaggerDocs");
+const helmet = require("helmet");
 
 // USE
 const app = express();
+
+app.use(helmet());
 
 // Sets up CORS, allowed origin defined by environment.
 // The cors package treats `origin: undefined` (or `false`) as "allow
