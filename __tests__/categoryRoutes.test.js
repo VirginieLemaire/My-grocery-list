@@ -77,6 +77,51 @@ describe("PATCH /api/categories/:id", () => {
 	});
 });
 
+describe("POST /api/categories without a name", () => {
+	it("should return a 400 JSON error", async () => {
+		// Act
+		const response = await request(app).post("/api/categories").send({});
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
+describe("POST /api/categories with a name of the wrong type", () => {
+	it("should return a 400 JSON error", async () => {
+		// Act
+		const response = await request(app)
+			.post("/api/categories")
+			.send({ name: 123 });
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
+describe("PATCH /api/categories/:id with a name of the wrong type", () => {
+	it("should return a 400 JSON error", async () => {
+		// Arrange
+		const categoryResponse = await request(app)
+			.post("/api/categories")
+			.send({ name: "category to patch invalidly" });
+
+		// Act
+		const response = await request(app)
+			.patch(`/api/categories/${categoryResponse.body.id}`)
+			.send({ name: 123 });
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
 describe("DELETE /api/categories/:id when the category is still used by an item", () => {
 	it("should return a 409 JSON error and not delete the category", async () => {
 		// Arrange

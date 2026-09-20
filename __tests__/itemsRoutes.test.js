@@ -166,6 +166,85 @@ describe("Cas d'erreur", () => {
 			expect(response.body).toEqual({ error: expect.any(String) });
 		});
 	});
+
+	describe("POST /api/items without a name", () => {
+		it("should return a 400 JSON error", async () => {
+			// Arrange
+			const payload = { details: "no name given" };
+
+			// Act
+			const response = await request(app).post("/api/items").send(payload);
+
+			// Assert
+			expect(response.headers["content-type"]).toMatch(/json/);
+			expect(response.status).toBe(400);
+			expect(response.body).toEqual({ error: expect.any(String) });
+		});
+	});
+
+	describe("POST /api/items with a name of the wrong type", () => {
+		it("should return a 400 JSON error", async () => {
+			// Arrange
+			const payload = { name: 123 };
+
+			// Act
+			const response = await request(app).post("/api/items").send(payload);
+
+			// Assert
+			expect(response.headers["content-type"]).toMatch(/json/);
+			expect(response.status).toBe(400);
+			expect(response.body).toEqual({ error: expect.any(String) });
+		});
+	});
+
+	describe("POST /api/items with a brand_id of the wrong type", () => {
+		it("should return a 400 JSON error", async () => {
+			// Arrange
+			const payload = { name: "test", brand_id: "not a number" };
+
+			// Act
+			const response = await request(app).post("/api/items").send(payload);
+
+			// Assert
+			expect(response.headers["content-type"]).toMatch(/json/);
+			expect(response.status).toBe(400);
+			expect(response.body).toEqual({ error: expect.any(String) });
+		});
+	});
+
+	describe("POST /api/items with an unknown field", () => {
+		it("should return a 400 JSON error", async () => {
+			// Arrange
+			const payload = { name: "test", unknown_field: "nope" };
+
+			// Act
+			const response = await request(app).post("/api/items").send(payload);
+
+			// Assert
+			expect(response.headers["content-type"]).toMatch(/json/);
+			expect(response.status).toBe(400);
+			expect(response.body).toEqual({ error: expect.any(String) });
+		});
+	});
+
+	describe("PATCH /api/items/:id with a name of the wrong type", () => {
+		it("should return a 400 JSON error", async () => {
+			// Arrange
+			const itemResponse = await request(app)
+				.post("/api/items")
+				.send({ name: "item to patch invalidly" });
+
+			// Act
+			const response = await request(app)
+				.patch(`/api/items/${itemResponse.body.id}`)
+				.send({ name: 123 });
+
+			// Assert
+			expect(response.headers["content-type"]).toMatch(/json/);
+			expect(response.status).toBe(400);
+			expect(response.body).toEqual({ error: expect.any(String) });
+		});
+	});
 	describe("DELETE /api/items/:idInexistant", () => {
 		it("should return a 404 when the id doesn't exists with a JSON error", async () => {
 			// Act

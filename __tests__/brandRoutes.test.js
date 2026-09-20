@@ -121,6 +121,49 @@ describe("DELETE /api/brands/:id", () => {
 	});
 });
 
+describe("POST /api/brands without a name", () => {
+	it("should return a 400 JSON error", async () => {
+		// Act
+		const response = await request(app).post("/api/brands").send({});
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
+describe("POST /api/brands with a name of the wrong type", () => {
+	it("should return a 400 JSON error", async () => {
+		// Act
+		const response = await request(app).post("/api/brands").send({ name: 123 });
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
+describe("PATCH /api/brands/:id with a name of the wrong type", () => {
+	it("should return a 400 JSON error", async () => {
+		// Arrange
+		const brandResponse = await request(app)
+			.post("/api/brands")
+			.send({ name: "brand to patch invalidly" });
+
+		// Act
+		const response = await request(app)
+			.patch(`/api/brands/${brandResponse.body.id}`)
+			.send({ name: 123 });
+
+		// Assert
+		expect(response.headers["content-type"]).toMatch(/json/);
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({ error: expect.any(String) });
+	});
+});
+
 describe("DELETE /api/brands/:idInexistant", () => {
 	it("should return a 404 when the id doesn't exist with a JSON error", async () => {
 		// Act
