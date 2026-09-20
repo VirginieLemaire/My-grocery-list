@@ -4,6 +4,7 @@ require("@dotenvx/dotenvx").config({
 });
 //connection to DB with pooling
 const { Pool } = require("pg");
+const { logger } = require("./logger");
 
 let DB_URL;
 if (process.env.NODE_ENV === "test") {
@@ -23,7 +24,7 @@ if (process.env.DATABASE_SSL === "true") {
 const pool = new Pool(config);
 
 pool.on("error", (err) => {
-	console.error("Erreur rencontrée au niveau du pool pg :", err);
+	logger.fatal({ err }, "Erreur rencontrée au niveau du pool pg");
 });
 
 module.exports = pool;

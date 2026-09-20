@@ -1,4 +1,5 @@
 const pool = require("../database");
+const { logger } = require("../logger");
 
 const tableInterpolation = (modelTableName) => {
 	const models = require("./index");
@@ -44,7 +45,10 @@ class Generic {
 			const { rows } = await pool.query(`SELECT * FROM ${table}`);
 			return rows.map((row) => new datas.model(row));
 		} catch (error) {
-			console.log(error);
+			logger.error(
+				{ err: error, table: datas.modelTableName },
+				"Échec de la lecture en base de données",
+			);
 			if (error.status) throw error;
 			throw new Error(error.detail ? error.detail : error.message, {
 				cause: error,
@@ -77,7 +81,10 @@ class Generic {
 			}
 			return null;
 		} catch (error) {
-			console.log(error);
+			logger.error(
+				{ err: error, table: datas.modelTableName, id },
+				"Impossible de trouver cet élément en base de données",
+			);
 
 			if (error.status) throw error;
 
@@ -98,7 +105,6 @@ class Generic {
 		try {
 			// check if table exists
 			tableInterpolation(this.modelTableName);
-			// console.log("body", this.body);
 			const { rows } = await pool.query(
 				`INSERT INTO ${this.modelTableName} (${Object.keys(this.body).join(", ")}) VALUES (${Object.keys(
 					this.body,
@@ -109,13 +115,15 @@ class Generic {
 			);
 
 			if (rows[0]) {
-				// console.log(rows[0]);
 				return rows[0];
 			} else {
 				throw new Error(`Can't record in table ${this.modelTableName}`);
 			}
 		} catch (error) {
-			console.log(error);
+			logger.error(
+				{ err: error, table: this.modelTableName },
+				"Erreur au moment de la création en base de données",
+			);
 
 			if (error.status) throw error;
 
@@ -153,7 +161,10 @@ class Generic {
 			// row matched the given id
 			return rows[0].update_table_dynamic;
 		} catch (error) {
-			console.log(error);
+			logger.error(
+				{ err: error, table: this.modelTableName, id: this.id },
+				"Erreur lors de la mise à jour en base de données",
+			);
 
 			if (error.status) throw error;
 
@@ -186,7 +197,10 @@ class Generic {
 
 			return rows[0] ?? null;
 		} catch (error) {
-			console.log(error);
+			logger.error(
+				{ err: error, table },
+				"Erreur lors de la suppression en base de données",
+			);
 
 			if (error.status) throw error;
 

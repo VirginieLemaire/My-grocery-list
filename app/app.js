@@ -12,6 +12,7 @@ const {
 	cssOptions,
 } = require("../doc/API-documentation/swaggerDocs");
 const helmet = require("helmet");
+const { logger } = require("./logger");
 
 // USE
 const app = express();
@@ -49,8 +50,21 @@ app.use("/api", router);
 // (whereas this API answers in JSON everywhere else) and can leak the
 // stack trace to the client if NODE_ENV isn't explicitly set to
 // "production" (which this project doesn't guarantee).
-app.use((error, _, response, _next) => {
-	console.trace(error);
+app.use((error, request, response, _next) => {
+	const context = {
+		err: error,
+		status: error.status,
+		method: request.method,
+		url: request.originalUrl,
+	};
+
+	if (error.status) {
+		// operational error: deliberately thrown by the app (validation, conflict...), not a bug
+		logger.warn(context, "Erreur applicative gérée");
+	} else {
+		logger.error(context, "Erreur inattendue non gérée par l'application");
+	}
+
 	const jsonResponse = error.status
 		? { error: error.errors || error.message }
 		: { error: "Erreur interne du serveur" };

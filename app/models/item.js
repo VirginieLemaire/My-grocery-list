@@ -1,4 +1,5 @@
 const pool = require("../database");
+const { logger } = require("../logger");
 const Generic = require("./generic");
 
 /**
@@ -36,7 +37,10 @@ class Item extends Generic {
 			);
 			return rows.map((row) => new Item(row));
 		} catch (error) {
-			console.log(error);
+			logger.error(
+				{ err: error, table: "item", filter: queryString },
+				"Erreur lors de la recherche filtrée en base de données",
+			);
 			throw new Error(error.detail ? error.detail : error.message, {
 				cause: error,
 			});
