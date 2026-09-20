@@ -27,6 +27,9 @@ module.exports = {
 					},
 				},
 			},
+			400: {
+				$ref: "#/components/responses/BadRequest",
+			},
 			default: {
 				$ref: "#/components/responses/UnexpectedError",
 			},
@@ -108,6 +111,9 @@ module.exports = {
 						},
 					},
 				},
+			},
+			400: {
+				$ref: "#/components/responses/BadRequest",
 			},
 			404: {
 				$ref: "#/components/responses/NotFound",

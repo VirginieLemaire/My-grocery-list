@@ -49,6 +49,9 @@ module.exports = {
 			400: {
 				$ref: "#/components/responses/BadRequest",
 			},
+			409: {
+				$ref: "#/components/responses/Conflict",
+			},
 			default: {
 				$ref: "#/components/responses/UnexpectedError",
 			},

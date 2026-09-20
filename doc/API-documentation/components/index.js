@@ -62,7 +62,8 @@ module.exports = {
 	},
 	responses: {
 		BadRequest: {
-			description: "Empty body: nothing to save",
+			description:
+				"Invalid request: empty body, payload failing validation, or non-numeric id",
 			content: {
 				"application/json": {
 					schema: {
