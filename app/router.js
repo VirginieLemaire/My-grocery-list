@@ -5,6 +5,7 @@ const itemController = require("./controllers/itemController");
 //import middlewares
 const { addModelInRequest } = require("./middlewares/getModelName");
 const { validateBody } = require("./middlewares/validateBody");
+const { validateId } = require("./middlewares/validateId");
 
 const { Router } = require("express");
 const router = Router();
@@ -33,6 +34,7 @@ router
 router
 	.route("/:modelName/:id")
 	.all(addModelInRequest)
+	.all(validateId)
 	.get(genericController.findOne) //find one element corresponding to the id
 	.patch(validateBody, genericController.save) //update one element corresponding to the id
 	.delete(genericController.delete); // delete one element corresponding to the id
