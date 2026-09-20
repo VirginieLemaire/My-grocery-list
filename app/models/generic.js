@@ -1,5 +1,4 @@
 const pool = require("../database");
-// TODO : add schema to validate fields
 
 class Generic {
 	/**
