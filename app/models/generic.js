@@ -1,5 +1,17 @@
 const pool = require("../database");
 
+const tableInterpolation = (modelTableName) => {
+	const models = require("./index");
+	// construct all table names list in minuscules
+	const tableList = Object.keys(models).map((name) => name.toLowerCase());
+
+	if (!tableList.includes(modelTableName)) {
+		const tableNameError = new Error(`erreur : cette table n'existe pas`);
+		tableNameError.status = 400;
+		throw tableNameError;
+	}
+};
+
 class Generic {
 	/**
 	 * Constructor
@@ -20,7 +32,9 @@ class Generic {
 	 */
 	static async findAll(datas) {
 		try {
-			// console.log("ma table", datas.modelTableName);
+			// check if table exists
+			tableInterpolation(datas.modelTableName);
+
 			// Select postgreSQL's view "item_with_everything" instead of table 'item' if we're looking for items to retrieve all the informations (id and name of brand, category and shelf)
 			const table =
 				datas.modelTableName === "item"
@@ -31,6 +45,7 @@ class Generic {
 			return rows.map((row) => new datas.model(row));
 		} catch (error) {
 			console.log(error);
+			if (error.status) throw error;
 			throw new Error(error.detail ? error.detail : error.message, {
 				cause: error,
 			});
@@ -46,6 +61,8 @@ class Generic {
 	 */
 	static async findById(datas, id) {
 		try {
+			// check if table exists
+			tableInterpolation(datas.modelTableName);
 			// Select view item_with_everything instead of table 'item' if we're looking for items ti retrieve all the informations (id and name of brand, category and shelf)
 			const table =
 				datas.modelTableName === "item"
@@ -61,6 +78,9 @@ class Generic {
 			return null;
 		} catch (error) {
 			console.log(error);
+
+			if (error.status) throw error;
+
 			throw new Error(error.detail ? error.detail : error.message, {
 				cause: error,
 			});
@@ -76,6 +96,8 @@ class Generic {
 	 */
 	async create() {
 		try {
+			// check if table exists
+			tableInterpolation(this.modelTableName);
 			// console.log("body", this.body);
 			const { rows } = await pool.query(
 				`INSERT INTO ${this.modelTableName} (${Object.keys(this.body).join(", ")}) VALUES (${Object.keys(
@@ -94,6 +116,9 @@ class Generic {
 			}
 		} catch (error) {
 			console.log(error);
+
+			if (error.status) throw error;
+
 			// 23505 = duplicate key value violates unique constraint : il y a déjà un élément avec la même clé -> conflit, pas une erreur serveur
 			if (error.code === "23505") {
 				const conflictError = new Error(
@@ -110,6 +135,8 @@ class Generic {
 
 	async update() {
 		try {
+			// check if table exists
+			tableInterpolation(this.modelTableName);
 			const changingDatas = {
 				id: parseInt(this.id, 10),
 				...this.body,
@@ -126,6 +153,9 @@ class Generic {
 			return rows[0].update_table_dynamic;
 		} catch (error) {
 			console.log(error);
+
+			if (error.status) throw error;
+
 			// 23505 = duplicate key value violates unique constraint : il y a déjà un élément avec la même clé -> conflit, pas une erreur serveur
 			if (error.code === "23505") {
 				const conflictError = new Error(
@@ -143,6 +173,8 @@ class Generic {
 	async delete(idToDelete) {
 		const table = this.modelTableName;
 		try {
+			// check if table exists
+			tableInterpolation(this.modelTableName);
 			const id = parseInt(idToDelete, 10);
 
 			const { rows } = await pool.query(
@@ -153,6 +185,9 @@ class Generic {
 			return rows[0] ?? null;
 		} catch (error) {
 			console.log(error);
+
+			if (error.status) throw error;
+
 			// 23503 = foreign_key_violation : la ligne est encore référencée
 			// (ex. une marque utilisée par un item) -> conflit, pas une erreur serveur
 			if (error.code === "23503") {
