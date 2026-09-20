@@ -84,7 +84,8 @@ module.exports = {
 	delete: {
 		tags: ["Category"],
 		summary: "Delete a category",
-		description: "Delete an existing category",
+		description:
+			"Delete an existing category. Fails with a 409 if the category is still referenced by an item.",
 		operationId: "deleteCategory",
 		parameters: [
 			{
@@ -111,6 +112,9 @@ module.exports = {
 			},
 			404: {
 				$ref: "#/components/responses/NotFound",
+			},
+			409: {
+				$ref: "#/components/responses/Conflict",
 			},
 			default: {
 				$ref: "#/components/responses/UnexpectedError",
