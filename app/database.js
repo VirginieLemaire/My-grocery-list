@@ -12,14 +12,14 @@ if (process.env.NODE_ENV === "test") {
 	DB_URL = process.env.DATABASE_URL;
 }
 
-const pool = new Pool({
-	connectionString: DB_URL,
-});
+const config = { connectionString: DB_URL };
 
-// if (process.env.NODE_ENV === 'production') {
-//     config.ssl = {
-//         rejectUnauthorized: false
-//     };
-// }
+if (process.env.DATABASE_SSL === "true") {
+	config.ssl = {
+		rejectUnauthorized: true,
+	};
+}
+
+const pool = new Pool(config);
 
 module.exports = pool;

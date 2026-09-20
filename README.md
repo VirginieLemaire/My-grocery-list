@@ -65,7 +65,9 @@ Le chargement des variables d'environnement se fait avec [dotenvx](https://doten
 - `.env.development` pour `npm run dev` et `npm test`
 - `.env.production` pour `npm run start`
 
-Chaque fichier suit le format de [`.env.example`](.env.example) (`DATABASE_URL`, `DATABASE_TEST_URL`, `PORT`, `BASE_URL`, `CORS_ORIGIN`, `NODE_ENV`). `DATABASE_TEST_URL` doit pointer vers une base de test dédiée (les tests suppriment/recréent des données dedans, ne la faites jamais pointer sur votre base de dev ou de prod). `CORS_ORIGIN` doit être l'origine exacte de votre frontend (ex: `http://localhost:3000`) ; sans cette variable, l'API refuse toutes les requêtes cross-origin par défaut (choix volontaire pour éviter d'ouvrir le CORS en grand par erreur).
+Chaque fichier suit le format de [`.env.example`](.env.example) (`DATABASE_URL`, `DATABASE_TEST_URL`, `DATABASE_SSL`, `PORT`, `BASE_URL`, `CORS_ORIGIN`, `NODE_ENV`). `DATABASE_TEST_URL` doit pointer vers une base de test dédiée (les tests suppriment/recréent des données dedans, ne la faites jamais pointer sur votre base de dev ou de prod). `CORS_ORIGIN` doit être l'origine exacte de votre frontend (ex: `http://localhost:3000`) ; sans cette variable, l'API refuse toutes les requêtes cross-origin par défaut (choix volontaire pour éviter d'ouvrir le CORS en grand par erreur).
+
+`DATABASE_SSL` doit être positionné explicitement à `true` si votre base de données l'exige — c'est le cas de la plupart des fournisseurs managés (Neon, Scaleway Serverless SQL Database, Supabase...). Ce n'est **pas** déduit automatiquement de `NODE_ENV` : une base auto-hébergée ou sur réseau local (comme en développement) n'a généralement pas SSL configuré, activer cette option dans ce cas ferait échouer la connexion. Laissé à `false` ou absent, aucune option SSL n'est passée à la connexion.
 
 ```bash
 cp .env.example .env.development
