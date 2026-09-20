@@ -20,7 +20,6 @@ Il a aussi pour vocation d'être accessible à d'autres personnes qui veulent d�
     - [Lint](#lint)
   - [Fonctionnalités](#fonctionnalités)
     - [en place](#en-place)
-    - [à venir](#à-venir)
   - [Précisions](#précisions)
     - [Catégories perso](#catégories-perso)
     - [Rayon (du magasin)](#rayon-du-magasin)
@@ -66,13 +65,16 @@ Le chargement des variables d'environnement se fait avec [dotenvx](https://doten
 - `.env.development` pour `npm run dev` et `npm test`
 - `.env.production` pour `npm run start`
 
-Chaque fichier suit le format de [`.env.example`](.env.example) (`DATABASE_URL`, `DATABASE_TEST_URL`, `PORT`, `BASE_URL`, `CORS_ORIGIN`). `DATABASE_TEST_URL` doit pointer vers une base de test dédiée (les tests suppriment/recréent des données dedans, ne la faites jamais pointer sur votre base de dev ou de prod). `CORS_ORIGIN` doit être l'origine exacte de votre frontend (ex: `http://localhost:3000`) ; sans cette variable, l'API refuse toutes les requêtes cross-origin par défaut (choix volontaire pour éviter d'ouvrir le CORS en grand par erreur).
+Chaque fichier suit le format de [`.env.example`](.env.example) (`DATABASE_URL`, `DATABASE_TEST_URL`, `PORT`, `BASE_URL`, `CORS_ORIGIN`, `NODE_ENV`). `DATABASE_TEST_URL` doit pointer vers une base de test dédiée (les tests suppriment/recréent des données dedans, ne la faites jamais pointer sur votre base de dev ou de prod). `CORS_ORIGIN` doit être l'origine exacte de votre frontend (ex: `http://localhost:3000`) ; sans cette variable, l'API refuse toutes les requêtes cross-origin par défaut (choix volontaire pour éviter d'ouvrir le CORS en grand par erreur).
 
 ```bash
 cp .env.example .env.development
 cp .env.example .env.production
 # puis éditez les valeurs (identifiants de connexion, ports, etc.)
 ```
+⚠️ `.env.example` ne fixe pas `NODE_ENV` (le même fichier sert de modèle aux deux copies). Après la copie, ajoutez manuellement :
+- `NODE_ENV=development` dans `.env.development`
+- `NODE_ENV=production` dans `.env.production`
 
 ### Base de données
 
@@ -122,30 +124,30 @@ Accès en local (voir [installation](#installation)).
 
 - Articles (item) :
    - accéder à la liste des articles
-   - filtrer la liste des articles en fonction de la marque, le rayon ou la Catégorie perso
+   - filtrer la liste des articles en fonction de la marque, le rayon ou la catégorie perso
    - accéder à un article en particulier
    - créer un article
    - modifier un article
+   - supprimer un article
 - Catégories (category) :
    - accéder à la liste des catégories
    - accéder à une catégorie en particulier
    - créer une catégorie
    - modifier une catégorie
+   - supprimer une catégorie (impossible si un article est lié)
 - Rayons (shelf) :
    - accéder à la liste des rayons
-   - accéder à une rayon en particulier
-   - créer une rayon
+   - accéder à un rayon en particulier
+   - créer un rayon
    - modifier un rayon
+   - supprimer un rayon (impossible si un article est lié)
 - marques (brand) :
    - accéder à la liste des marques
    - accéder à une marque en particulier
    - créer une marque
    - modifier une marque
+   - supprimer une marque (impossible si un article est lié)
 - Documentation
-
-### à venir
-
-- Suppression d'articles, catégories, marques et rayons.
 
 ## Précisions
 ### Catégories perso
